@@ -1,0 +1,20 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Generate rust bridge for Flutter App",
+            "type": "shell",
+            "command": "flutter_rust_bridge_codegen generate",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            // "windows": {
+            //     "args": ["--llvm C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\Llvm\\x64"],
+            // },
+            "problemMatcher": []
+        }
+    ]
+}
