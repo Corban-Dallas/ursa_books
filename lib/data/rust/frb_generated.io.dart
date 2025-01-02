@@ -176,9 +176,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   AppConfig dco_decode_box_autoadd_app_config(dynamic raw);
 
   @protected
-  Book dco_decode_box_autoadd_book(dynamic raw);
-
-  @protected
   BookDraft dco_decode_box_autoadd_book_draft(dynamic raw);
 
   @protected
@@ -376,9 +373,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   AppConfig sse_decode_box_autoadd_app_config(SseDeserializer deserializer);
-
-  @protected
-  Book sse_decode_box_autoadd_book(SseDeserializer deserializer);
 
   @protected
   BookDraft sse_decode_box_autoadd_book_draft(SseDeserializer deserializer);
@@ -588,9 +582,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   @protected
   void sse_encode_box_autoadd_app_config(
       AppConfig self, SseSerializer serializer);
-
-  @protected
-  void sse_encode_box_autoadd_book(Book self, SseSerializer serializer);
 
   @protected
   void sse_encode_box_autoadd_book_draft(
