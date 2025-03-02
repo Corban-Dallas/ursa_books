@@ -7,7 +7,7 @@ import 'package:ursa_books/data/rust/third_party/ark_application/file_storage/im
 
 class BooksRepository {
   final ArkBooks _ctr;
-  BookCollection? _oc;
+  BooksCollection? _oc;
   BookSubscription? _subscription;
 
   // Covers cache

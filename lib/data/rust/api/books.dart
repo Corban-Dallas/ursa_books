@@ -16,7 +16,7 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 abstract class ArkBooks implements RustOpaqueInterface {
   Future<String?> create({required BookDraft draft});
 
-  Future<BookCollection> createCollection();
+  Future<BooksCollection> createCollection();
 
   Future<void> delete({required String id});
 
@@ -29,11 +29,11 @@ abstract class ArkBooks implements RustOpaqueInterface {
   Future<void> storeEpubBook({required String path});
 }
 
-// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<BookCollection>>
-abstract class BookCollection implements RustOpaqueInterface {
+// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<BookSubscription>>
+abstract class BookSubscription implements RustOpaqueInterface {}
+
+// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<BooksCollection>>
+abstract class BooksCollection implements RustOpaqueInterface {
   Future<BookSubscription> subscribe(
       {required FutureOr<void> Function(List<Book>) f});
 }
-
-// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<BookSubscription>>
-abstract class BookSubscription implements RustOpaqueInterface {}

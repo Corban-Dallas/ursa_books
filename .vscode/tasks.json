@@ -15,6 +15,20 @@
             //     "args": ["--llvm C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\Llvm\\x64"],
             // },
             "problemMatcher": []
-        }
+        },
+        {
+            "label": "cargo clippy + fmt",
+            "type": "shell",
+            "command": "cd rust; cargo clippy --fix; cargo fmt",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            // "windows": {
+            //     "args": ["--llvm C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\Llvm\\x64"],
+            // },
+            "problemMatcher": []
+        },
+
     ]
 }
