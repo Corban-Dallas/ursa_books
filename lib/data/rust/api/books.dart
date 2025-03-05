@@ -4,13 +4,13 @@
 // ignore_for_file: invalid_use_of_internal_member, unused_import, unnecessary_import
 
 import '../frb_generated.dart';
-import '../lib.dart';
 import '../third_party/ark_application/file_storage/images.dart';
 import '../third_party/ark_backend_api/creative_work/book.dart';
 import '../third_party/ark_backend_api/creative_work/organization.dart';
 import '../third_party/ark_backend_api/creative_work/person.dart';
 import '../third_party/ark_backend_api/creative_work/subject.dart';
 import '../third_party/ark_backend_api/creative_work/text_object.dart';
+import '../third_party/ark_backend_api/personal_data/book_user_data.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<ArkBooks>>
@@ -48,4 +48,28 @@ abstract class UserBookSubscription implements RustOpaqueInterface {}
 abstract class UserBooksCollection implements RustOpaqueInterface {
   Future<UserBookSubscription> subscribe(
       {required FutureOr<void> Function(List<UserBook>) f});
+}
+
+class UserBook {
+  final Book book;
+  final String portalId;
+  final BookUserData? userData;
+
+  const UserBook({
+    required this.book,
+    required this.portalId,
+    this.userData,
+  });
+
+  @override
+  int get hashCode => book.hashCode ^ portalId.hashCode ^ userData.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is UserBook &&
+          runtimeType == other.runtimeType &&
+          book == other.book &&
+          portalId == other.portalId &&
+          userData == other.userData;
 }

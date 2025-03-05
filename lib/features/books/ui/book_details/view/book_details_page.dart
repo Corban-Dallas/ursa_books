@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:ursa_books/features/books/domain/books_repository.dart';
+import 'package:ursa_books/features/books/domain/user_books_repository.dart';
 import 'package:ursa_books/features/books/ui/widgets/book_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -20,7 +20,7 @@ class BookDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => BookDetailsBloc(booksRepository: context.read<BooksRepository>(), id: id, book: _book),
+      create: (context) => BookDetailsBloc(booksRepository: context.read<UserBooksRepository>(), id: id, book: _book),
       child: BookDetailsView(),
     );
   }

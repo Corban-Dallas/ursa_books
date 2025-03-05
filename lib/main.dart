@@ -8,7 +8,8 @@ import 'data/rust/api/books.dart';
 import 'data/rust/api/core.dart';
 import 'data/rust/frb_generated.dart';
 // Dart
-import 'features/books/domain/books_repository.dart';
+// import 'features/books/domain/books_repository.dart';
+import 'features/books/domain/user_books_repository.dart';
 import 'app/theme.dart';
 import 'app/launch_page.dart';
 import 'package:ursa_books/app/router.dart';
@@ -90,7 +91,7 @@ class _MyApp extends State<MyApp> {
 
   Widget applicationBuilder(BuildContext context) {
     return RepositoryProvider.value(
-      value: BooksRepository(booksCtr),
+      value: UserBooksRepository(booksCtr),
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         theme: getTheme(),

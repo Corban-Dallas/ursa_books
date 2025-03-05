@@ -1,7 +1,7 @@
 part of 'bloc.dart';
 
 class BookImportCubit extends Cubit<void> {
-  final BooksRepository repository;
+  final UserBooksRepository repository;
 
   BookImportCubit(this.repository) : super(());
 

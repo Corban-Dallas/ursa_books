@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:ursa_books/features/books/domain/books_repository.dart';
+import 'package:ursa_books/features/books/domain/user_books_repository.dart';
 import 'package:ursa_books/features/books/ui/widgets/book_card.dart';
 
 import '../bloc/bloc.dart';
@@ -16,10 +17,10 @@ class BooksCollectionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(providers: [
       BlocProvider<BooksCubit>(
-        create: (BuildContext context) => BooksCubit(context.read<BooksRepository>()),
+        create: (BuildContext context) => BooksCubit(context.read<UserBooksRepository>()),
       ),
       BlocProvider<BookImportCubit>(
-        create: (BuildContext context) => BookImportCubit(context.read<BooksRepository>()),
+        create: (BuildContext context) => BookImportCubit(context.read<UserBooksRepository>()),
       ),
     ], child: const BooksCollection());
   }
@@ -37,7 +38,7 @@ class _BooksCollection extends State<BooksCollection> {
   Widget build(BuildContext context) {
     return Scaffold(
       // appBar: AppBar(),
-      body: BlocBuilder<BooksCubit, List<Book>>(builder: (context, state) {
+      body: BlocBuilder<BooksCubit, List<UserBook>>(builder: (context, state) {
         return Padding(
           padding: const EdgeInsets.all(12.0),
           child: booksGrid(context, state),
@@ -50,7 +51,7 @@ class _BooksCollection extends State<BooksCollection> {
     );
   }
 
-  Widget booksGrid(BuildContext context, List<Book> books) {
+  Widget booksGrid(BuildContext context, List<UserBook> books) {
     const double itemAspectRatio = 0.64;
     const double itemMaxWidth = 240;
     const double itemMaxHeight = itemMaxWidth / itemAspectRatio;
@@ -63,13 +64,13 @@ class _BooksCollection extends State<BooksCollection> {
         children: List.generate(books.length, (index) {
           return GestureDetector(
               child: Hero(
-                  tag: books[index].id,
+                  tag: books[index].book.id,
                   child: BookCard(
-                    book: books[index],
+                    book: books[index].book,
                     imageMaxWidth: itemMaxWidth,
                     imageMaxHeight: itemMaxHeight,
                   )),
-              onTap: () => _onBookTap(context, books[index]));
+              onTap: () => _onBookTap(context, books[index].book));
         }));
   }
 

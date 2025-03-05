@@ -1,7 +1,7 @@
 part of 'bloc.dart';
 
-class BooksCubit extends Cubit<List<Book>> {
-  final BooksRepository repository;
+class BooksCubit extends Cubit<List<UserBook>> {
+  final UserBooksRepository repository;
 
   BooksCubit(this.repository) : super([]) {
     repository.subscribe(emit);
@@ -12,7 +12,7 @@ class BooksCubit extends Cubit<List<Book>> {
   }
 
   @override
-  void onChange(Change<List<Book>> change) {
+  void onChange(Change<List<UserBook>> change) {
     super.onChange(change);
   }
 

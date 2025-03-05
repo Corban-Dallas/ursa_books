@@ -10,7 +10,6 @@ import 'dart:convert';
 import 'frb_generated.dart';
 import 'frb_generated.io.dart'
     if (dart.library.js_interop) 'frb_generated.web.dart';
-import 'lib.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'third_party/ark_application/file_storage.dart';
 import 'third_party/ark_application/file_storage/images.dart';
@@ -19,6 +18,7 @@ import 'third_party/ark_backend_api/creative_work/organization.dart';
 import 'third_party/ark_backend_api/creative_work/person.dart';
 import 'third_party/ark_backend_api/creative_work/subject.dart';
 import 'third_party/ark_backend_api/creative_work/text_object.dart';
+import 'third_party/ark_backend_api/personal_data/book_user_data.dart';
 
 /// Main entrypoint of the Rust API
 class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
@@ -77,7 +77,7 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
   String get codegenVersion => '2.8.0';
 
   @override
-  int get rustContentHash => 639507778;
+  int get rustContentHash => -90908513;
 
   static const kDefaultExternalLibraryLoaderConfig =
       ExternalLibraryLoaderConfig(
@@ -136,6 +136,9 @@ abstract class RustLibApi extends BaseApi {
 
   Future<BookPredicate> arkBackendApiCreativeWorkBookBookPredicateDefault();
 
+  Future<BookUserDataDraft>
+      arkBackendApiPersonalDataBookUserDataBookUserDataDraftDefault();
+
   RustArcIncrementStrongCountFnType
       get rust_arc_increment_strong_count_Application;
 
@@ -183,14 +186,6 @@ abstract class RustLibApi extends BaseApi {
   RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_Portal;
 
   CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_PortalPtr;
-
-  RustArcIncrementStrongCountFnType
-      get rust_arc_increment_strong_count_UserBook;
-
-  RustArcDecrementStrongCountFnType
-      get rust_arc_decrement_strong_count_UserBook;
-
-  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_UserBookPtr;
 
   RustArcIncrementStrongCountFnType
       get rust_arc_increment_strong_count_UserBookSubscription;
@@ -619,7 +614,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerUserBooksCollection(
             that, serializer);
-        sse_encode_DartFn_Inputs_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerUserBook_Output_unit_AnyhowException(
+        sse_encode_DartFn_Inputs_list_user_book_Output_unit_AnyhowException(
             f, serializer);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
             funcId: 15, port: port_);
@@ -690,13 +685,38 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
             argNames: [],
           );
 
+  @override
+  Future<BookUserDataDraft>
+      arkBackendApiPersonalDataBookUserDataBookUserDataDraftDefault() {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        pdeCallFfi(generalizedFrbRustBinding, serializer,
+            funcId: 18, port: port_);
+      },
+      codec: SseCodec(
+        decodeSuccessData: sse_decode_book_user_data_draft,
+        decodeErrorData: null,
+      ),
+      constMeta:
+          kArkBackendApiPersonalDataBookUserDataBookUserDataDraftDefaultConstMeta,
+      argValues: [],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta
+      get kArkBackendApiPersonalDataBookUserDataBookUserDataDraftDefaultConstMeta =>
+          const TaskConstMeta(
+            debugName: "book_user_data_draft_default",
+            argNames: [],
+          );
+
   Future<void> Function(int, dynamic)
-      encode_DartFn_Inputs_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerUserBook_Output_unit_AnyhowException(
-          FutureOr<void> Function(List<UserBook>) raw) {
+      encode_DartFn_Inputs_list_book_Output_unit_AnyhowException(
+          FutureOr<void> Function(List<Book>) raw) {
     return (callId, rawArg0) async {
-      final arg0 =
-          dco_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerUserBook(
-              rawArg0);
+      final arg0 = dco_decode_list_book(rawArg0);
 
       Box<void>? rawOutput;
       Box<AnyhowException>? rawError;
@@ -726,10 +746,10 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   Future<void> Function(int, dynamic)
-      encode_DartFn_Inputs_list_book_Output_unit_AnyhowException(
-          FutureOr<void> Function(List<Book>) raw) {
+      encode_DartFn_Inputs_list_user_book_Output_unit_AnyhowException(
+          FutureOr<void> Function(List<UserBook>) raw) {
     return (callId, rawArg0) async {
-      final arg0 = dco_decode_list_book(rawArg0);
+      final arg0 = dco_decode_list_user_book(rawArg0);
 
       Box<void>? rawOutput;
       Box<AnyhowException>? rawError;
@@ -807,14 +827,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPortal;
 
   RustArcIncrementStrongCountFnType
-      get rust_arc_increment_strong_count_UserBook => wire
-          .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerUserBook;
-
-  RustArcDecrementStrongCountFnType
-      get rust_arc_decrement_strong_count_UserBook => wire
-          .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerUserBook;
-
-  RustArcIncrementStrongCountFnType
       get rust_arc_increment_strong_count_UserBookSubscription => wire
           .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerUserBookSubscription;
 
@@ -882,14 +894,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return PortalImpl.frbInternalDcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
-  UserBook
-      dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerUserBook(
-          dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return UserBookImpl.frbInternalDcoDecode(raw as List<dynamic>);
   }
 
   @protected
@@ -965,16 +969,16 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  FutureOr<void> Function(List<UserBook>)
-      dco_decode_DartFn_Inputs_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerUserBook_Output_unit_AnyhowException(
+  FutureOr<void> Function(List<Book>)
+      dco_decode_DartFn_Inputs_list_book_Output_unit_AnyhowException(
           dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     throw UnimplementedError('');
   }
 
   @protected
-  FutureOr<void> Function(List<Book>)
-      dco_decode_DartFn_Inputs_list_book_Output_unit_AnyhowException(
+  FutureOr<void> Function(List<UserBook>)
+      dco_decode_DartFn_Inputs_list_user_book_Output_unit_AnyhowException(
           dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     throw UnimplementedError('');
@@ -1032,14 +1036,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return PortalImpl.frbInternalDcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
-  UserBook
-      dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerUserBook(
-          dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return UserBookImpl.frbInternalDcoDecode(raw as List<dynamic>);
   }
 
   @protected
@@ -1138,6 +1134,31 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  BookUserData dco_decode_book_user_data(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 4)
+      throw Exception('unexpected arr length: expect 4 but see ${arr.length}');
+    return BookUserData(
+      bookId: dco_decode_String(arr[0]),
+      portalId: dco_decode_String(arr[1]),
+      completed: dco_decode_bool(arr[2]),
+      progress: dco_decode_usize(arr[3]),
+    );
+  }
+
+  @protected
+  BookUserDataDraft dco_decode_book_user_data_draft(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 1)
+      throw Exception('unexpected arr length: expect 1 but see ${arr.length}');
+    return BookUserDataDraft(
+      bookId: dco_decode_String(arr[0]),
+    );
+  }
+
+  @protected
   bool dco_decode_bool(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw as bool;
@@ -1162,6 +1183,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   BookDraft dco_decode_box_autoadd_book_draft(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return dco_decode_book_draft(raw);
+  }
+
+  @protected
+  BookUserData dco_decode_box_autoadd_book_user_data(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_book_user_data(raw);
   }
 
   @protected
@@ -1193,17 +1220,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   PlatformInt64 dco_decode_isize(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return dcoDecodeI64(raw);
-  }
-
-  @protected
-  List<UserBook>
-      dco_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerUserBook(
-          dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return (raw as List<dynamic>)
-        .map(
-            dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerUserBook)
-        .toList();
   }
 
   @protected
@@ -1249,6 +1265,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  List<UserBook> dco_decode_list_user_book(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>).map(dco_decode_user_book).toList();
+  }
+
+  @protected
   String? dco_decode_opt_String(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw == null ? null : dco_decode_String(raw);
@@ -1263,6 +1285,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         ? null
         : dco_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPortal(
             raw);
+  }
+
+  @protected
+  BookUserData? dco_decode_opt_box_autoadd_book_user_data(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_box_autoadd_book_user_data(raw);
   }
 
   @protected
@@ -1353,6 +1381,19 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  UserBook dco_decode_user_book(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 3)
+      throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
+    return UserBook(
+      book: dco_decode_book(arr[0]),
+      portalId: dco_decode_String(arr[1]),
+      userData: dco_decode_opt_box_autoadd_book_user_data(arr[2]),
+    );
+  }
+
+  @protected
   BigInt dco_decode_usize(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return dcoDecodeU64(raw);
@@ -1416,15 +1457,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return PortalImpl.frbInternalSseDecode(
-        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
-  }
-
-  @protected
-  UserBook
-      sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerUserBook(
-          SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return UserBookImpl.frbInternalSseDecode(
         sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
   }
 
@@ -1571,15 +1603,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  UserBook
-      sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerUserBook(
-          SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return UserBookImpl.frbInternalSseDecode(
-        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
-  }
-
-  @protected
   UserBookSubscription
       sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerUserBookSubscription(
           SseDeserializer deserializer) {
@@ -1696,6 +1719,28 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  BookUserData sse_decode_book_user_data(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_bookId = sse_decode_String(deserializer);
+    var var_portalId = sse_decode_String(deserializer);
+    var var_completed = sse_decode_bool(deserializer);
+    var var_progress = sse_decode_usize(deserializer);
+    return BookUserData(
+        bookId: var_bookId,
+        portalId: var_portalId,
+        completed: var_completed,
+        progress: var_progress);
+  }
+
+  @protected
+  BookUserDataDraft sse_decode_book_user_data_draft(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_bookId = sse_decode_String(deserializer);
+    return BookUserDataDraft(bookId: var_bookId);
+  }
+
+  @protected
   bool sse_decode_bool(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return deserializer.buffer.getUint8() != 0;
@@ -1720,6 +1765,13 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   BookDraft sse_decode_box_autoadd_book_draft(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return (sse_decode_book_draft(deserializer));
+  }
+
+  @protected
+  BookUserData sse_decode_box_autoadd_book_user_data(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_book_user_data(deserializer));
   }
 
   @protected
@@ -1748,22 +1800,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   PlatformInt64 sse_decode_isize(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return deserializer.buffer.getPlatformInt64();
-  }
-
-  @protected
-  List<UserBook>
-      sse_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerUserBook(
-          SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-
-    var len_ = sse_decode_i_32(deserializer);
-    var ans_ = <UserBook>[];
-    for (var idx_ = 0; idx_ < len_; ++idx_) {
-      ans_.add(
-          sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerUserBook(
-              deserializer));
-    }
-    return ans_;
   }
 
   @protected
@@ -1847,6 +1883,18 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  List<UserBook> sse_decode_list_user_book(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <UserBook>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_user_book(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
   String? sse_decode_opt_String(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
 
@@ -1866,6 +1914,18 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     if (sse_decode_bool(deserializer)) {
       return (sse_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPortal(
           deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  BookUserData? sse_decode_opt_box_autoadd_book_user_data(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_box_autoadd_book_user_data(deserializer));
     } else {
       return null;
     }
@@ -1967,6 +2027,16 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  UserBook sse_decode_user_book(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_book = sse_decode_book(deserializer);
+    var var_portalId = sse_decode_String(deserializer);
+    var var_userData = sse_decode_opt_box_autoadd_book_user_data(deserializer);
+    return UserBook(
+        book: var_book, portalId: var_portalId, userData: var_userData);
+  }
+
+  @protected
   BigInt sse_decode_usize(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return deserializer.buffer.getBigUint64();
@@ -2039,15 +2109,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_usize(
         (self as PortalImpl).frbInternalSseEncode(move: true), serializer);
-  }
-
-  @protected
-  void
-      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerUserBook(
-          UserBook self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(
-        (self as UserBookImpl).frbInternalSseEncode(move: true), serializer);
   }
 
   @protected
@@ -2139,23 +2200,20 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  void
-      sse_encode_DartFn_Inputs_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerUserBook_Output_unit_AnyhowException(
-          FutureOr<void> Function(List<UserBook>) self,
-          SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_DartOpaque(
-        encode_DartFn_Inputs_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerUserBook_Output_unit_AnyhowException(
-            self),
-        serializer);
-  }
-
-  @protected
   void sse_encode_DartFn_Inputs_list_book_Output_unit_AnyhowException(
       FutureOr<void> Function(List<Book>) self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_DartOpaque(
         encode_DartFn_Inputs_list_book_Output_unit_AnyhowException(self),
+        serializer);
+  }
+
+  @protected
+  void sse_encode_DartFn_Inputs_list_user_book_Output_unit_AnyhowException(
+      FutureOr<void> Function(List<UserBook>) self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_DartOpaque(
+        encode_DartFn_Inputs_list_user_book_Output_unit_AnyhowException(self),
         serializer);
   }
 
@@ -2222,15 +2280,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_usize(
         (self as PortalImpl).frbInternalSseEncode(move: null), serializer);
-  }
-
-  @protected
-  void
-      sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerUserBook(
-          UserBook self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(
-        (self as UserBookImpl).frbInternalSseEncode(move: null), serializer);
   }
 
   @protected
@@ -2314,6 +2363,22 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_book_user_data(BookUserData self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.bookId, serializer);
+    sse_encode_String(self.portalId, serializer);
+    sse_encode_bool(self.completed, serializer);
+    sse_encode_usize(self.progress, serializer);
+  }
+
+  @protected
+  void sse_encode_book_user_data_draft(
+      BookUserDataDraft self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.bookId, serializer);
+  }
+
+  @protected
   void sse_encode_bool(bool self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     serializer.buffer.putUint8(self ? 1 : 0);
@@ -2343,6 +2408,13 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_box_autoadd_book_user_data(
+      BookUserData self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_book_user_data(self, serializer);
+  }
+
+  @protected
   void sse_encode_box_autoadd_image_params(
       ImageParams self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
@@ -2367,18 +2439,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   void sse_encode_isize(PlatformInt64 self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     serializer.buffer.putPlatformInt64(self);
-  }
-
-  @protected
-  void
-      sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerUserBook(
-          List<UserBook> self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_i_32(self.length, serializer);
-    for (final item in self) {
-      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerUserBook(
-          item, serializer);
-    }
   }
 
   @protected
@@ -2446,6 +2506,16 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_list_user_book(
+      List<UserBook> self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_user_book(item, serializer);
+    }
+  }
+
+  @protected
   void sse_encode_opt_String(String? self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
 
@@ -2465,6 +2535,17 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     if (self != null) {
       sse_encode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPortal(
           self, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_opt_box_autoadd_book_user_data(
+      BookUserData? self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_book_user_data(self, serializer);
     }
   }
 
@@ -2546,6 +2627,14 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   @protected
   void sse_encode_unit(void self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
+  }
+
+  @protected
+  void sse_encode_user_book(UserBook self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_book(self.book, serializer);
+    sse_encode_String(self.portalId, serializer);
+    sse_encode_opt_box_autoadd_book_user_data(self.userData, serializer);
   }
 
   @protected
@@ -2732,26 +2821,6 @@ class PortalImpl extends RustOpaque implements Portal {
       RustLib.instance.api.crateApiCorePortalBooksCtr(
         that: this,
       );
-}
-
-@sealed
-class UserBookImpl extends RustOpaque implements UserBook {
-  // Not to be used by end users
-  UserBookImpl.frbInternalDcoDecode(List<dynamic> wire)
-      : super.frbInternalDcoDecode(wire, _kStaticData);
-
-  // Not to be used by end users
-  UserBookImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative)
-      : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
-
-  static final _kStaticData = RustArcStaticData(
-    rustArcIncrementStrongCount:
-        RustLib.instance.api.rust_arc_increment_strong_count_UserBook,
-    rustArcDecrementStrongCount:
-        RustLib.instance.api.rust_arc_decrement_strong_count_UserBook,
-    rustArcDecrementStrongCountPtr:
-        RustLib.instance.api.rust_arc_decrement_strong_count_UserBookPtr,
-  );
 }
 
 @sealed

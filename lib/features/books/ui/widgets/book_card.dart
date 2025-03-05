@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 import 'dart:async';
 
-import 'package:ursa_books/features/books/domain/books_repository.dart';
+import 'package:ursa_books/features/books/domain/user_books_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -67,7 +67,7 @@ class _BookCardState extends State<BookCard> {
   void updateCover() {
     setState(() {
       final (width, _) = imageCacheSize(context);
-      _imageCover = context.read<BooksRepository>().getCover(widget.book.thumbnailIri, width, null);
+      _imageCover = context.read<UserBooksRepository>().getCover(widget.book.thumbnailIri, width, null);
       urn = widget.book.thumbnailIri;
     });
   }
