@@ -4,6 +4,7 @@
 // ignore_for_file: invalid_use_of_internal_member, unused_import, unnecessary_import
 
 import '../frb_generated.dart';
+import '../lib.dart';
 import '../third_party/ark_application/file_storage/images.dart';
 import '../third_party/ark_backend_api/creative_work/book.dart';
 import '../third_party/ark_backend_api/creative_work/organization.dart';
@@ -17,6 +18,8 @@ abstract class ArkBooks implements RustOpaqueInterface {
   Future<String?> create({required BookDraft draft});
 
   Future<BooksCollection> createCollection();
+
+  Future<UserBooksCollection> createUserCollection();
 
   Future<void> delete({required String id});
 
@@ -36,4 +39,13 @@ abstract class BookSubscription implements RustOpaqueInterface {}
 abstract class BooksCollection implements RustOpaqueInterface {
   Future<BookSubscription> subscribe(
       {required FutureOr<void> Function(List<Book>) f});
+}
+
+// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<UserBookSubscription>>
+abstract class UserBookSubscription implements RustOpaqueInterface {}
+
+// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<UserBooksCollection>>
+abstract class UserBooksCollection implements RustOpaqueInterface {
+  Future<UserBookSubscription> subscribe(
+      {required FutureOr<void> Function(List<UserBook>) f});
 }
