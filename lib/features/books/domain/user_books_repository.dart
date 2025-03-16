@@ -30,8 +30,7 @@ class UserBooksRepository {
   }
 
   Future<Uint8List?> getCover(String urn, [int? width, int? height]) async {
-    final params = ImageParams(
-        width: width?.toInt(), height: height?.toInt(), fill: false);
+    final params = ImageParams(width: width?.toInt(), height: height?.toInt(), fill: false);
     if (_covers[urn] == null) {
       final cover = await _ctr.getCover(urn: urn, params: params);
       _covers[urn] = (true, cover);
@@ -51,6 +50,10 @@ class UserBooksRepository {
 
   Future<void> delete(String id) async {
     await _ctr.delete(id: id);
+  }
+
+  Future<void> setCompleted(bool completed, String id) async {
+    await _ctr.setCompleted(completed: completed, bookId: id);
   }
 
   // Mocks

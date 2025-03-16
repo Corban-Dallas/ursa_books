@@ -6,7 +6,7 @@ class BookDetailsState {
   final String id;
 
   Status status;
-  Book? book;
+  UserBook? book;
 
   BookDetailsState({required this.id, this.book, Status? status})
       : status = status ?? ((book != null) ? Status.success : Status.initial);
@@ -17,7 +17,7 @@ class BookDetailsState {
 
   BookDetailsState copyWith({
     String? id,
-    Book? book,
+    UserBook? book,
     Status? status,
   }) {
     return BookDetailsState(

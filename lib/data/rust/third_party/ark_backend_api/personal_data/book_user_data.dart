@@ -6,21 +6,59 @@
 import '../../../frb_generated.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
-// These types are ignored because they are neither used by any `pub` functions nor (for structs and enums) marked `#[frb(unignore)]`: `BookUserDataPredicate`
-// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `assert_receiver_is_total_eq`, `clone`, `clone`, `eq`, `hash`
+// These types are ignored because they are neither used by any `pub` functions nor (for structs and enums) marked `#[frb(unignore)]`: `BookUserDataPredicate`, `BookUserDataUpdate`
+// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `assert_receiver_is_total_eq`, `clone`, `clone`, `clone`, `eq`, `hash`
 
 class BookUserData {
+  final String id;
   final String bookId;
   final String portalId;
   final bool completed;
   final BigInt progress;
 
   const BookUserData({
+    required this.id,
     required this.bookId,
     required this.portalId,
     required this.completed,
     required this.progress,
   });
+
+  @override
+  int get hashCode =>
+      id.hashCode ^
+      bookId.hashCode ^
+      portalId.hashCode ^
+      completed.hashCode ^
+      progress.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is BookUserData &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          bookId == other.bookId &&
+          portalId == other.portalId &&
+          completed == other.completed &&
+          progress == other.progress;
+}
+
+class BookUserDataDraft {
+  final String bookId;
+  final String portalId;
+  final bool completed;
+  final BigInt progress;
+
+  const BookUserDataDraft({
+    required this.bookId,
+    required this.portalId,
+    required this.completed,
+    required this.progress,
+  });
+
+  static Future<BookUserDataDraft> default_() => RustLib.instance.api
+      .arkBackendApiPersonalDataBookUserDataBookUserDataDraftDefault();
 
   @override
   int get hashCode =>
@@ -32,31 +70,10 @@ class BookUserData {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is BookUserData &&
+      other is BookUserDataDraft &&
           runtimeType == other.runtimeType &&
           bookId == other.bookId &&
           portalId == other.portalId &&
           completed == other.completed &&
           progress == other.progress;
-}
-
-class BookUserDataDraft {
-  final String bookId;
-
-  const BookUserDataDraft({
-    required this.bookId,
-  });
-
-  static Future<BookUserDataDraft> default_() => RustLib.instance.api
-      .arkBackendApiPersonalDataBookUserDataBookUserDataDraftDefault();
-
-  @override
-  int get hashCode => bookId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is BookUserDataDraft &&
-          runtimeType == other.runtimeType &&
-          bookId == other.bookId;
 }

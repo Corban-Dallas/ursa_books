@@ -7,7 +7,7 @@ import 'package:ursa_books/data/rust/third_party/ark_application/file_storage/im
 
 class BooksRepository {
   final ArkBooks _ctr;
-  BooksCollection? _oc;
+  BooksObservableCollection? _oc;
   BookSubscription? _subscription;
 
   // Covers cache
@@ -52,28 +52,4 @@ class BooksRepository {
   Future<void> delete(String id) async {
     await _ctr.delete(id: id);
   }
-
-  // Mocks
-
-  // Future<void> createMoks() async {
-  //   const draft = BookDraft(
-  //       title: "Dune",
-  //       authors: ["Frank Herbert"],
-  //       number: "1",
-  //       numberType: 0,
-  //       imageUrn: "placeholder",
-  //       fileUrn: "placeholdder");
-
-  //   await _ctr.create(draft: draft);
-
-  //   const dune2 = BookDraft(
-  //       title: "Dune 2",
-  //       authors: ["Frank Herbert"],
-  //       number: "2",
-  //       numberType: 0,
-  //       imageUrn: "placeholder",
-  //       fileUrn: "placeholdder");
-
-  //   await _ctr.create(draft: dune2);
-  // }
 }

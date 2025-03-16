@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ursa_books/data/rust/api/books.dart';
 
 import 'package:ursa_books/features/books/domain/user_books_repository.dart';
 import 'package:ursa_books/features/books/ui/widgets/book_card.dart';
@@ -9,22 +10,18 @@ import '../book_details.dart';
 
 class BookDetailsPage extends StatelessWidget {
   final String id;
-  final Book? _book;
+  final UserBook? _book;
 
-  BookDetailsPage.book({super.key, required Book book})
-      : id = book.id,
+  BookDetailsPage.book({super.key, required UserBook book})
+      : id = book.book.id,
         _book = book;
 
-  const BookDetailsPage({super.key, required this.id, Book? book})
-      : _book = book;
+  const BookDetailsPage({super.key, required this.id, UserBook? book}) : _book = book;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => BookDetailsBloc(
-          booksRepository: context.read<UserBooksRepository>(),
-          id: id,
-          book: _book),
+      create: (context) => BookDetailsBloc(booksRepository: context.read<UserBooksRepository>(), id: id, book: _book),
       child: BookDetailsView(),
     );
   }
@@ -39,8 +36,7 @@ class BookDetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return blocProvider(context,
-        builder: (context, state) =>
-            LayoutBuilder(builder: (context, constraints) {
+        builder: (context, state) => LayoutBuilder(builder: (context, constraints) {
               final isWide = constraints.maxWidth > compactLayoutThreshold;
               if (isWide) {
                 return wideLayout(context, constraints, state);
@@ -50,21 +46,16 @@ class BookDetailsView extends StatelessWidget {
             }));
   }
 
-  Widget blocProvider(BuildContext context,
-      {required BlocWidgetBuilder builder}) {
+  Widget blocProvider(BuildContext context, {required BlocWidgetBuilder builder}) {
     return BlocBuilder<BookDetailsBloc, BookDetailsState>(
-        builder: (context, state) =>
-            BlocListener<BookDetailsBloc, BookDetailsState>(
-              listenWhen: (previous, current) =>
-                  previous.status != current.status &&
-                  current.status == Status.deleted,
+        builder: (context, state) => BlocListener<BookDetailsBloc, BookDetailsState>(
+              listenWhen: (previous, current) => previous.status != current.status && current.status == Status.deleted,
               listener: (context, state) => context.pop(),
               child: builder(context, state),
             ));
   }
 
-  Widget wideLayout(BuildContext context, BoxConstraints constraints,
-      BookDetailsState state) {
+  Widget wideLayout(BuildContext context, BoxConstraints constraints, BookDetailsState state) {
     return Scaffold(
         // extendBodyBehindAppBar: true,
         appBar: AppBar(
@@ -87,7 +78,9 @@ class BookDetailsView extends StatelessWidget {
                         const SizedBox(height: 10),
                         readButton(context),
                         const SizedBox(height: 10),
-                        deleteButton(context)
+                        deleteButton(context),
+                        const SizedBox(height: 10),
+                        completedButton(context, state)
                       ],
                     ),
                   ),
@@ -120,7 +113,7 @@ class BookDetailsView extends StatelessWidget {
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
           SliverToBoxAdapter(
             child: Text(
-              state.book!.name,
+              state.book!.book.name,
               style: theme.textTheme.headlineMedium,
             ),
           ),
@@ -137,7 +130,7 @@ class BookDetailsView extends StatelessWidget {
           ),
         ],
         body: TabBarView(children: [
-          dicription(state.book!),
+          dicription(state.book!.book),
           bookContent(),
           bookmarks(),
         ]),
@@ -178,9 +171,7 @@ class BookDetailsView extends StatelessWidget {
   }
 
   Widget bookImage(BuildContext context, BookDetailsState state) {
-    return (state.book == null)
-        ? const Text("No cover")
-        : BookCard(book: state.book!);
+    return (state.book == null) ? const Text("No cover") : BookCard(book: state.book!.book);
   }
 
   Widget readButton(BuildContext context) {
@@ -190,16 +181,22 @@ class BookDetailsView extends StatelessWidget {
     );
   }
 
+  Widget completedButton(BuildContext context, BookDetailsState state) {
+    final completed = state.book?.userData?.completed ?? false;
+
+    return OutlinedButton(
+        child: Text(completed ? "Completed" : "Uncompleted"),
+        onPressed: () => context.read<BookDetailsBloc>().add(const BookDetailsCompleteToogled()));
+  }
+
   Widget deleteButton(BuildContext context) {
     return OutlinedButton(
       child: const Text("Delete"),
-      onPressed: () =>
-          context.read<BookDetailsBloc>().add(const BookDetailsTapDelete()),
+      onPressed: () => context.read<BookDetailsBloc>().add(const BookDetailsTapDelete()),
     );
   }
 
-  Widget compactLayout(BuildContext context, BoxConstraints constraints,
-      BookDetailsState state) {
+  Widget compactLayout(BuildContext context, BoxConstraints constraints, BookDetailsState state) {
     return const Text("Compact layout");
   }
 }

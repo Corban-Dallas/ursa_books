@@ -72,7 +72,7 @@ class _BooksCollection extends State<BooksCollection> {
                     imageMaxWidth: itemMaxWidth,
                     imageMaxHeight: itemMaxHeight,
                   )),
-              onTap: () => _onBookTap(context, books[index].book));
+              onTap: () => _onBookTap(context, books[index]));
         }));
   }
 
@@ -82,10 +82,10 @@ class _BooksCollection extends State<BooksCollection> {
         icon: const Icon(CupertinoIcons.plus));
   }
 
-  void _onBookTap(BuildContext context, Book book) {
+  void _onBookTap(BuildContext context, UserBook book) {
     final routeProvider = GoRouter.of(context).routeInformationProvider;
     final location = routeProvider.value.uri.path;
-    final bookId = book.id;
+    final bookId = book.book.id;
     context.go('$location/$bookId', extra: book);
   }
 }

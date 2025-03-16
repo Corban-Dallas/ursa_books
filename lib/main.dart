@@ -70,8 +70,9 @@ class _MyApp extends State<MyApp> {
     // final dir = await getApplicationDocumentsDirectory();
     final dir = await getApplicationSupportDirectory();
     final appConfig = AppConfig(storageDir: dir.path);
-    app = await Application.newInstance(config: appConfig);
-    await app.start();
+    // app = await Application.newInstance(config: appConfig);
+    // await app.start();
+    app = await Application.run(config: appConfig);
     final mainPortal = await app.mainPortal();
     booksCtr = await mainPortal!.booksCtr();
 

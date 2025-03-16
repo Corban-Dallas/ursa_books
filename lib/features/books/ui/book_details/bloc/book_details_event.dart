@@ -7,3 +7,7 @@ sealed class BookDetailsEvent {
 final class BookDetailsTapDelete extends BookDetailsEvent {
   const BookDetailsTapDelete();
 }
+
+final class BookDetailsCompleteToogled extends BookDetailsEvent {
+  const BookDetailsCompleteToogled();
+}

@@ -11,11 +11,8 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 abstract class Application implements RustOpaqueInterface {
   Future<Portal?> mainPortal();
 
-  // HINT: Make it `#[frb(sync)]` to let it become the default constructor of Dart class.
-  static Future<Application> newInstance({required AppConfig config}) =>
-      RustLib.instance.api.crateApiCoreApplicationNew(config: config);
-
-  Future<void> start();
+  static Future<Application> run({required AppConfig config}) =>
+      RustLib.instance.api.crateApiCoreApplicationRun(config: config);
 }
 
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Portal>>
