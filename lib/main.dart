@@ -49,7 +49,8 @@ class MyApp extends StatefulWidget {
   }
 }
 
-final router = AppRouter(activities: [Books.activity, Audiobooks.activity, Comics.activity]);
+final router = AppRouter(
+    activities: [Books.activity, Audiobooks.activity, Comics.activity]);
 
 class _MyApp extends State<MyApp> {
   @override

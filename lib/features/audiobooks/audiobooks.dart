@@ -8,6 +8,8 @@ export 'ui/audiobooks_sidebar.dart';
 export 'ui/audiobooks_complete.dart';
 
 class Audiobooks {
-  static Activity activity =
-      Activity(icon: CupertinoIcons.headphones, entryRoute: AudiobooksNavigation.root, entryPath: '/audiobooks');
+  static Activity activity = Activity(
+      icon: CupertinoIcons.headphones,
+      entryRoute: AudiobooksNavigation.root,
+      entryPath: '/audiobooks');
 }

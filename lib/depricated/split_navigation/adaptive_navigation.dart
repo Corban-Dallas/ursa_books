@@ -15,7 +15,8 @@ class AdaptiveNavigation extends StatefulWidget {
   final Widget details;
   final platform = const LocalPlatform();
 
-  const AdaptiveNavigation({super.key, required this.sidebar, required this.details});
+  const AdaptiveNavigation(
+      {super.key, required this.sidebar, required this.details});
 
   @override
   State<AdaptiveNavigation> createState() {
@@ -23,7 +24,8 @@ class AdaptiveNavigation extends StatefulWidget {
   }
 }
 
-class _AdaptiveNavigation extends State<AdaptiveNavigation> with TickerProviderStateMixin {
+class _AdaptiveNavigation extends State<AdaptiveNavigation>
+    with TickerProviderStateMixin {
   final sidebarMaxWidth = 240.0;
 
   final state = SplitState();
@@ -43,7 +45,10 @@ class _AdaptiveNavigation extends State<AdaptiveNavigation> with TickerProviderS
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (context) => state, child: state.desktopMode ? expandedLayout(context) : compactLayout(context));
+        create: (context) => state,
+        child: state.desktopMode
+            ? expandedLayout(context)
+            : compactLayout(context));
   }
 
   Widget expandedLayout(BuildContext context) {
@@ -53,7 +58,9 @@ class _AdaptiveNavigation extends State<AdaptiveNavigation> with TickerProviderS
       children: [
         Row(
           children: [
-            ConstrainedBox(constraints: BoxConstraints(maxWidth: sidebarMaxWidth), child: expandedSidebar(context)),
+            ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: sidebarMaxWidth),
+                child: expandedSidebar(context)),
             VerticalDivider(
               color: divierColor,
               width: 1,
@@ -84,7 +91,10 @@ class _AdaptiveNavigation extends State<AdaptiveNavigation> with TickerProviderS
         child: SafeArea(
             minimum: EdgeInsets.only(top: DesktopAppbar.height),
             child: Column(
-              children: [Scaffold(appBar: const ContextMenu(), body: widget.sidebar), const AccountButton()],
+              children: [
+                Scaffold(appBar: const ContextMenu(), body: widget.sidebar),
+                const AccountButton()
+              ],
             )));
   }
 

@@ -9,6 +9,8 @@ export 'ui/books_completed.dart';
 export 'ui/book_details/book_details.dart';
 
 class Books {
-  static Activity activity =
-      Activity(icon: CupertinoIcons.book_solid, entryRoute: BooksNavigation.root, entryPath: '/books');
+  static Activity activity = Activity(
+      icon: CupertinoIcons.book_solid,
+      entryRoute: BooksNavigation.root,
+      entryPath: '/books');
 }

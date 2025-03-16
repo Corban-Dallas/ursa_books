@@ -10,7 +10,6 @@ import 'person.dart';
 import 'subject.dart';
 import 'text_object.dart';
 
-// These types are ignored because they are neither used by any `pub` functions nor (for structs and enums) marked `#[frb(unignore)]`: `BookUpdate`
 // These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `assert_receiver_is_total_eq`, `clone`, `clone`, `clone`, `eq`, `eq`, `fmt`, `fmt`, `fmt`, `hash`, `identifier`, `ne`
 
 class Book {
@@ -188,4 +187,82 @@ class BookPredicate {
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is BookPredicate && runtimeType == other.runtimeType;
+}
+
+class BookUpdate {
+  final String id;
+  final String? name;
+  final String? sameAs;
+  final String? imageIri;
+  final String? thumbnailIri;
+  final String? isbn;
+  final String? edition;
+  final String? description;
+  final List<String>? creatorPersons;
+  final String? language;
+  final String? translationSource;
+  final String? datePublished;
+  final List<String>? encodings;
+  final String? originCountry;
+  final String? entitySource;
+
+  const BookUpdate({
+    required this.id,
+    this.name,
+    this.sameAs,
+    this.imageIri,
+    this.thumbnailIri,
+    this.isbn,
+    this.edition,
+    this.description,
+    this.creatorPersons,
+    this.language,
+    this.translationSource,
+    this.datePublished,
+    this.encodings,
+    this.originCountry,
+    this.entitySource,
+  });
+
+  static Future<BookUpdate> default_() =>
+      RustLib.instance.api.arkBackendApiCreativeWorkBookBookUpdateDefault();
+
+  @override
+  int get hashCode =>
+      id.hashCode ^
+      name.hashCode ^
+      sameAs.hashCode ^
+      imageIri.hashCode ^
+      thumbnailIri.hashCode ^
+      isbn.hashCode ^
+      edition.hashCode ^
+      description.hashCode ^
+      creatorPersons.hashCode ^
+      language.hashCode ^
+      translationSource.hashCode ^
+      datePublished.hashCode ^
+      encodings.hashCode ^
+      originCountry.hashCode ^
+      entitySource.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is BookUpdate &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          name == other.name &&
+          sameAs == other.sameAs &&
+          imageIri == other.imageIri &&
+          thumbnailIri == other.thumbnailIri &&
+          isbn == other.isbn &&
+          edition == other.edition &&
+          description == other.description &&
+          creatorPersons == other.creatorPersons &&
+          language == other.language &&
+          translationSource == other.translationSource &&
+          datePublished == other.datePublished &&
+          encodings == other.encodings &&
+          originCountry == other.originCountry &&
+          entitySource == other.entitySource;
 }

@@ -1,0 +1,28 @@
+shape: sequence_diagram
+
+provider: Provider
+sw: SyncWorker
+oc: OC RunLoop
+sh: SyncHandle
+sync: Synchronizer
+
+oc -> sw.a: change state
+sw.a -> sync.a: unbind(consumer:)
+sw.a -> sync.b: register_provider(provider:)
+sw.a -> sync.c: bind(consumer:provider:)
+
+
+oc <- sw.a
+sync -> sync.ps: periodic_sync
+sync.ps -> provider.s: sync
+sync.ps <- provider.s
+sync.ps -> sh.wake: wake
+sh.wake -> oc.update: update
+oc.update -> sw.us: update_snapshot
+oc.update <- sw.us
+oc.update -> sh.wake
+sh.wake -> sync.ps
+
+
+
+# oc.update -> sh.wake

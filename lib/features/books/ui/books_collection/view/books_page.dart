@@ -17,10 +17,12 @@ class BooksCollectionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(providers: [
       BlocProvider<BooksCubit>(
-        create: (BuildContext context) => BooksCubit(context.read<UserBooksRepository>()),
+        create: (BuildContext context) =>
+            BooksCubit(context.read<UserBooksRepository>()),
       ),
       BlocProvider<BookImportCubit>(
-        create: (BuildContext context) => BookImportCubit(context.read<UserBooksRepository>()),
+        create: (BuildContext context) =>
+            BookImportCubit(context.read<UserBooksRepository>()),
       ),
     ], child: const BooksCollection());
   }
@@ -75,7 +77,9 @@ class _BooksCollection extends State<BooksCollection> {
   }
 
   Widget addBookButton(BuildContext context) {
-    return IconButton(onPressed: context.read<BookImportCubit>().importBook, icon: const Icon(CupertinoIcons.plus));
+    return IconButton(
+        onPressed: context.read<BookImportCubit>().importBook,
+        icon: const Icon(CupertinoIcons.plus));
   }
 
   void _onBookTap(BuildContext context, Book book) {

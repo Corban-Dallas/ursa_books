@@ -7,7 +7,10 @@ part 'book_details_event.dart';
 part 'book_details_state.dart';
 
 class BookDetailsBloc extends Bloc<BookDetailsEvent, BookDetailsState> {
-  BookDetailsBloc({required UserBooksRepository booksRepository, required String id, Book? book})
+  BookDetailsBloc(
+      {required UserBooksRepository booksRepository,
+      required String id,
+      Book? book})
       : _booksRepository = booksRepository,
         super(BookDetailsState(id: id, book: book)) {
     on<BookDetailsTapDelete>(_onTapDelete);

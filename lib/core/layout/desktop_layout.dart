@@ -9,7 +9,8 @@ class DesktopLayout extends StatelessWidget {
 
   final Widget content;
 
-  const DesktopLayout({super.key, required this.activities, required this.content});
+  const DesktopLayout(
+      {super.key, required this.activities, required this.content});
 
   @override
   Widget build(BuildContext context) {

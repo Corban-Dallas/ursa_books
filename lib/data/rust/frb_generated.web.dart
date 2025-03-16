@@ -206,6 +206,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   BookPredicate dco_decode_book_predicate(dynamic raw);
 
   @protected
+  BookUpdate dco_decode_book_update(dynamic raw);
+
+  @protected
   BookUserData dco_decode_book_user_data(dynamic raw);
 
   @protected
@@ -280,6 +283,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   int? dco_decode_opt_box_autoadd_u_32(dynamic raw);
+
+  @protected
+  List<String>? dco_decode_opt_list_String(dynamic raw);
 
   @protected
   Uint8List? dco_decode_opt_list_prim_u_8_strict(dynamic raw);
@@ -448,6 +454,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   BookPredicate sse_decode_book_predicate(SseDeserializer deserializer);
 
   @protected
+  BookUpdate sse_decode_book_update(SseDeserializer deserializer);
+
+  @protected
   BookUserData sse_decode_book_user_data(SseDeserializer deserializer);
 
   @protected
@@ -526,6 +535,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   int? sse_decode_opt_box_autoadd_u_32(SseDeserializer deserializer);
+
+  @protected
+  List<String>? sse_decode_opt_list_String(SseDeserializer deserializer);
 
   @protected
   Uint8List? sse_decode_opt_list_prim_u_8_strict(SseDeserializer deserializer);
@@ -706,6 +718,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void sse_encode_book_predicate(BookPredicate self, SseSerializer serializer);
 
   @protected
+  void sse_encode_book_update(BookUpdate self, SseSerializer serializer);
+
+  @protected
   void sse_encode_book_user_data(BookUserData self, SseSerializer serializer);
 
   @protected
@@ -790,6 +805,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void sse_encode_opt_box_autoadd_u_32(int? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_list_String(List<String>? self, SseSerializer serializer);
 
   @protected
   void sse_encode_opt_list_prim_u_8_strict(

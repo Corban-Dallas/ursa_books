@@ -22,7 +22,8 @@ class LaunchPage extends StatelessWidget {
         Container(
           color: Colors.blueGrey,
           child: Center(
-            child: Lottie.asset('assets/lottie_cube.json', width: 250, backgroundLoading: false),
+            child: Lottie.asset('assets/lottie_cube.json',
+                width: 250, backgroundLoading: false),
           ),
         ),
         const DesktopAppbar(

@@ -77,7 +77,7 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
   String get codegenVersion => '2.8.0';
 
   @override
-  int get rustContentHash => -90908513;
+  int get rustContentHash => -1311776267;
 
   static const kDefaultExternalLibraryLoaderConfig =
       ExternalLibraryLoaderConfig(
@@ -135,6 +135,8 @@ abstract class RustLibApi extends BaseApi {
   Future<void> crateApiCoreAdditionalRuntimeInit();
 
   Future<BookPredicate> arkBackendApiCreativeWorkBookBookPredicateDefault();
+
+  Future<BookUpdate> arkBackendApiCreativeWorkBookBookUpdateDefault();
 
   Future<BookUserDataDraft>
       arkBackendApiPersonalDataBookUserDataBookUserDataDraftDefault();
@@ -686,13 +688,37 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           );
 
   @override
+  Future<BookUpdate> arkBackendApiCreativeWorkBookBookUpdateDefault() {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        pdeCallFfi(generalizedFrbRustBinding, serializer,
+            funcId: 18, port: port_);
+      },
+      codec: SseCodec(
+        decodeSuccessData: sse_decode_book_update,
+        decodeErrorData: null,
+      ),
+      constMeta: kArkBackendApiCreativeWorkBookBookUpdateDefaultConstMeta,
+      argValues: [],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kArkBackendApiCreativeWorkBookBookUpdateDefaultConstMeta =>
+      const TaskConstMeta(
+        debugName: "book_update_default",
+        argNames: [],
+      );
+
+  @override
   Future<BookUserDataDraft>
       arkBackendApiPersonalDataBookUserDataBookUserDataDraftDefault() {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 18, port: port_);
+            funcId: 19, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_book_user_data_draft,
@@ -1134,6 +1160,31 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  BookUpdate dco_decode_book_update(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 15)
+      throw Exception('unexpected arr length: expect 15 but see ${arr.length}');
+    return BookUpdate(
+      id: dco_decode_String(arr[0]),
+      name: dco_decode_opt_String(arr[1]),
+      sameAs: dco_decode_opt_String(arr[2]),
+      imageIri: dco_decode_opt_String(arr[3]),
+      thumbnailIri: dco_decode_opt_String(arr[4]),
+      isbn: dco_decode_opt_String(arr[5]),
+      edition: dco_decode_opt_String(arr[6]),
+      description: dco_decode_opt_String(arr[7]),
+      creatorPersons: dco_decode_opt_list_String(arr[8]),
+      language: dco_decode_opt_String(arr[9]),
+      translationSource: dco_decode_opt_String(arr[10]),
+      datePublished: dco_decode_opt_String(arr[11]),
+      encodings: dco_decode_opt_list_String(arr[12]),
+      originCountry: dco_decode_opt_String(arr[13]),
+      entitySource: dco_decode_opt_String(arr[14]),
+    );
+  }
+
+  @protected
   BookUserData dco_decode_book_user_data(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     final arr = raw as List<dynamic>;
@@ -1303,6 +1354,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   int? dco_decode_opt_box_autoadd_u_32(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw == null ? null : dco_decode_box_autoadd_u_32(raw);
+  }
+
+  @protected
+  List<String>? dco_decode_opt_list_String(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_list_String(raw);
   }
 
   @protected
@@ -1719,6 +1776,42 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  BookUpdate sse_decode_book_update(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_id = sse_decode_String(deserializer);
+    var var_name = sse_decode_opt_String(deserializer);
+    var var_sameAs = sse_decode_opt_String(deserializer);
+    var var_imageIri = sse_decode_opt_String(deserializer);
+    var var_thumbnailIri = sse_decode_opt_String(deserializer);
+    var var_isbn = sse_decode_opt_String(deserializer);
+    var var_edition = sse_decode_opt_String(deserializer);
+    var var_description = sse_decode_opt_String(deserializer);
+    var var_creatorPersons = sse_decode_opt_list_String(deserializer);
+    var var_language = sse_decode_opt_String(deserializer);
+    var var_translationSource = sse_decode_opt_String(deserializer);
+    var var_datePublished = sse_decode_opt_String(deserializer);
+    var var_encodings = sse_decode_opt_list_String(deserializer);
+    var var_originCountry = sse_decode_opt_String(deserializer);
+    var var_entitySource = sse_decode_opt_String(deserializer);
+    return BookUpdate(
+        id: var_id,
+        name: var_name,
+        sameAs: var_sameAs,
+        imageIri: var_imageIri,
+        thumbnailIri: var_thumbnailIri,
+        isbn: var_isbn,
+        edition: var_edition,
+        description: var_description,
+        creatorPersons: var_creatorPersons,
+        language: var_language,
+        translationSource: var_translationSource,
+        datePublished: var_datePublished,
+        encodings: var_encodings,
+        originCountry: var_originCountry,
+        entitySource: var_entitySource);
+  }
+
+  @protected
   BookUserData sse_decode_book_user_data(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var var_bookId = sse_decode_String(deserializer);
@@ -1949,6 +2042,17 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
 
     if (sse_decode_bool(deserializer)) {
       return (sse_decode_box_autoadd_u_32(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  List<String>? sse_decode_opt_list_String(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_list_String(deserializer));
     } else {
       return null;
     }
@@ -2363,6 +2467,26 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_book_update(BookUpdate self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.id, serializer);
+    sse_encode_opt_String(self.name, serializer);
+    sse_encode_opt_String(self.sameAs, serializer);
+    sse_encode_opt_String(self.imageIri, serializer);
+    sse_encode_opt_String(self.thumbnailIri, serializer);
+    sse_encode_opt_String(self.isbn, serializer);
+    sse_encode_opt_String(self.edition, serializer);
+    sse_encode_opt_String(self.description, serializer);
+    sse_encode_opt_list_String(self.creatorPersons, serializer);
+    sse_encode_opt_String(self.language, serializer);
+    sse_encode_opt_String(self.translationSource, serializer);
+    sse_encode_opt_String(self.datePublished, serializer);
+    sse_encode_opt_list_String(self.encodings, serializer);
+    sse_encode_opt_String(self.originCountry, serializer);
+    sse_encode_opt_String(self.entitySource, serializer);
+  }
+
+  @protected
   void sse_encode_book_user_data(BookUserData self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_String(self.bookId, serializer);
@@ -2567,6 +2691,17 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     sse_encode_bool(self != null, serializer);
     if (self != null) {
       sse_encode_box_autoadd_u_32(self, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_opt_list_String(
+      List<String>? self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_list_String(self, serializer);
     }
   }
 

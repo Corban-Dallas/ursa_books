@@ -54,7 +54,9 @@ class _ActivityBar extends State<ActivityBar> {
     return SizedBox(
       width: _width,
       child: Scaffold(
-        body: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: prepareButtons(context)),
+        body: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: prepareButtons(context)),
       ),
     );
   }

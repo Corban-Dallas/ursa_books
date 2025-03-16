@@ -7,7 +7,8 @@ class AudiobooksNavigation {
   static GoRoute root = GoRoute(
       path: '/audiobooks',
       redirect: (_, __) => "/audiobooks/all",
-      pageBuilder: (context, state) => const NoTransitionPage(child: AudioBooksSidebar()),
+      pageBuilder: (context, state) =>
+          const NoTransitionPage(child: AudioBooksSidebar()),
       routes: <RouteBase>[
         ShellRoute(
             pageBuilder: (context, state, child) {
