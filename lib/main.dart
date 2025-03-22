@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ursa_books/data/rust/third_party/ark_application/application.dart';
 // third party
 import 'package:window_manager/window_manager.dart';
 import 'package:path_provider/path_provider.dart';
@@ -59,7 +60,7 @@ class _MyApp extends State<MyApp> {
     initModel();
   }
 
-  late Application app;
+  late DApplication app;
   late ArkBooks booksCtr;
 
   bool started = false;
@@ -69,10 +70,8 @@ class _MyApp extends State<MyApp> {
     // Init app base services
     // final dir = await getApplicationDocumentsDirectory();
     final dir = await getApplicationSupportDirectory();
-    final appConfig = AppConfig(storageDir: dir.path);
-    // app = await Application.newInstance(config: appConfig);
-    // await app.start();
-    app = await Application.run(config: appConfig);
+    final appConfig = ApplicationConfig(storageDir: dir.path);
+    app = await DApplication.run(config: appConfig);
     final mainPortal = await app.mainPortal();
     booksCtr = await mainPortal!.booksCtr();
 

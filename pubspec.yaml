@@ -38,7 +38,7 @@ dependencies:
   # Rust backend module
   rust_lib_ursa_books:
     path: rust_builder
-  flutter_rust_bridge: 2.8.0
+  flutter_rust_bridge: 2.9.0
 
   bloc: ^8.1.4
   flutter_bloc: ^8.1.5

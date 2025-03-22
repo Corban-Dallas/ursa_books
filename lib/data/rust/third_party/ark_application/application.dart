@@ -3,25 +3,24 @@
 
 // ignore_for_file: invalid_use_of_internal_member, unused_import, unnecessary_import
 
-import '../../../frb_generated.dart';
+import '../../frb_generated.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
-// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `clone`, `fmt`
+/// Initial application state
+class ApplicationConfig {
+  final String storageDir;
 
-class Subject {
-  final String name;
-
-  const Subject({
-    required this.name,
+  const ApplicationConfig({
+    required this.storageDir,
   });
 
   @override
-  int get hashCode => name.hashCode;
+  int get hashCode => storageDir.hashCode;
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is Subject &&
+      other is ApplicationConfig &&
           runtimeType == other.runtimeType &&
-          name == other.name;
+          storageDir == other.storageDir;
 }
