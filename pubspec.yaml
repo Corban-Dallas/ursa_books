@@ -50,9 +50,12 @@ dependencies:
   window_manager: ^0.3.9
   equatable: ^2.0.0
   lottie: ^3.1.2
+  freezed_annotation: ^3.0.0
 
 dev_dependencies:
   flutter_test:
+    sdk: flutter
+  integration_test:
     sdk: flutter
 
   # The "flutter_lints" package below contains a set of recommended lints to
@@ -61,8 +64,8 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
-  integration_test:
-    sdk: flutter
+  freezed: ^3.0.0
+  build_runner: ^2.4.15
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

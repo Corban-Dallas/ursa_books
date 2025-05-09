@@ -1,3 +1,4 @@
 rust_input: crate::api,ark_backend_api::creative_work,ark_backend_api::personal_data,ark_application::file_storage::images
 rust_root: rust/
-dart_output: lib/data/rust 
+dart_output: lib/data/rust
+enable_lifetime: true

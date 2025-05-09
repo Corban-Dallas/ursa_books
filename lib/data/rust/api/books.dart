@@ -10,8 +10,14 @@ import '../third_party/ark_backend_api/creative_work/organization.dart';
 import '../third_party/ark_backend_api/creative_work/person.dart';
 import '../third_party/ark_backend_api/creative_work/subject.dart';
 import '../third_party/ark_backend_api/creative_work/text_object.dart';
-import '../third_party/ark_backend_api/personal_data/book_user_data.dart';
+import 'oc_observer.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
+import 'package:freezed_annotation/freezed_annotation.dart' hide protected;
+import 'user_books.dart';
+part 'books.freezed.dart';
+
+// These types are ignored because they are neither used by any `pub` functions nor (for structs and enums) marked `#[frb(unignore)]`: `DartBookFlatOCObserver`
+// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `from`, `reset`, `update`
 
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<ArkBooks>>
 abstract class ArkBooks implements RustOpaqueInterface {
@@ -34,44 +40,38 @@ abstract class ArkBooks implements RustOpaqueInterface {
   Future<void> storeEpubBook({required String path});
 }
 
-// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<BookSubscription>>
-abstract class BookSubscription implements RustOpaqueInterface {}
-
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<BooksObservableCollection>>
 abstract class BooksObservableCollection implements RustOpaqueInterface {
-  Future<BookSubscription> subscribe(
-      {required FutureOr<void> Function(List<Book>) f});
+  Future<OcSubscription> subscribe(
+      {required FutureOr<void> Function(FlatEventBook) callback});
 }
 
-// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<UserBookSubscription>>
-abstract class UserBookSubscription implements RustOpaqueInterface {}
+@freezed
+sealed class FlatEventBook with _$FlatEventBook {
+  const FlatEventBook._();
 
-// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<UserBooksCollection>>
-abstract class UserBooksCollection implements RustOpaqueInterface {
-  Future<UserBookSubscription> subscribe(
-      {required FutureOr<void> Function(List<UserBook>) f});
-}
-
-class UserBook {
-  final Book book;
-  final String portalId;
-  final BookUserData? userData;
-
-  const UserBook({
-    required this.book,
-    required this.portalId,
-    this.userData,
-  });
-
-  @override
-  int get hashCode => book.hashCode ^ portalId.hashCode ^ userData.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is UserBook &&
-          runtimeType == other.runtimeType &&
-          book == other.book &&
-          portalId == other.portalId &&
-          userData == other.userData;
+  const factory FlatEventBook.beginTasnsaction() =
+      FlatEventBook_BeginTasnsaction;
+  const factory FlatEventBook.finishTransaction() =
+      FlatEventBook_FinishTransaction;
+  const factory FlatEventBook.reset({
+    required List<Book> items,
+  }) = FlatEventBook_Reset;
+  const factory FlatEventBook.delete({
+    required BigInt start,
+    required BigInt end,
+  }) = FlatEventBook_Delete;
+  const factory FlatEventBook.insert({
+    required BigInt index,
+    required List<Book> items,
+  }) = FlatEventBook_Insert;
+  const factory FlatEventBook.update({
+    required BigInt index,
+    required Book item,
+  }) = FlatEventBook_Update;
+  const factory FlatEventBook.move({
+    required BigInt start,
+    required BigInt end,
+    required PlatformInt64 offset,
+  }) = FlatEventBook_Move;
 }

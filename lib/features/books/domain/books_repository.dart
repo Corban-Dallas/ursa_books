@@ -1,14 +1,15 @@
 import 'dart:collection';
 import 'dart:typed_data';
 
-import 'package:ursa_books/data/rust/third_party/ark_backend_api/creative_work/book.dart';
+import 'package:ursa_books/data/rust/api/oc_observer.dart';
+// import 'package:ursa_books/data/rust/third_party/ark_backend_api/creative_work/book.dart';
 import 'package:ursa_books/data/rust/api/books.dart';
 import 'package:ursa_books/data/rust/third_party/ark_application/file_storage/images.dart';
 
 class BooksRepository {
   final ArkBooks _ctr;
   BooksObservableCollection? _oc;
-  BookSubscription? _subscription;
+  OcSubscription? _subscription;
 
   // Covers cache
   final Map<String, (bool, Uint8List?)> _covers = HashMap();
@@ -17,9 +18,9 @@ class BooksRepository {
     // createMoks();
   }
 
-  Future<void> subscribe(void Function(List<Book>) callback) async {
+  Future<void> subscribe(void Function(FlatEventBook) callback) async {
     _oc = await _ctr.createCollection();
-    _subscription = await _oc!.subscribe(f: callback);
+    _subscription = await _oc!.subscribe(callback: (event) => callback(event));
   }
 
   void unsubscribe() {
