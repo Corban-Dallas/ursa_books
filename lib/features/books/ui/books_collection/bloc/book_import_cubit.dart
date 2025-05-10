@@ -1,4 +1,8 @@
-part of 'bloc.dart';
+// part of 'books_list_bloc.dart';
+
+import 'package:bloc/bloc.dart';
+import 'package:file_picker/file_picker.dart';
+import '../../../domain/user_books_repository.dart';
 
 class BookImportCubit extends Cubit<void> {
   final UserBooksRepository repository;

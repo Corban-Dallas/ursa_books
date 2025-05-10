@@ -13,8 +13,7 @@ class BookCard extends StatefulWidget {
   final double? imageMaxWidth;
   final double? imageMaxHeight;
 
-  const BookCard(
-      {super.key, required this.book, this.imageMaxHeight, this.imageMaxWidth});
+  const BookCard({super.key, required this.book, this.imageMaxHeight, this.imageMaxWidth});
 
   @override
   State<StatefulWidget> createState() => _BookCardState();
@@ -42,43 +41,33 @@ class _BookCardState extends State<BookCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        alignment: Alignment.bottomCenter, child: buildCard(context));
+    return Container(alignment: Alignment.bottomCenter, child: buildCard(context));
   }
 
   Widget buildCard(BuildContext context) {
     return FutureBuilder(
         future: _imageCover,
         builder: (BuildContext context, AsyncSnapshot<Uint8List?> snapshot) {
-          if (snapshot.hasData &&
-              snapshot.connectionState == ConnectionState.done) {
+          if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
             return Image.memory(
               snapshot.data!,
               fit: BoxFit.fill,
               frameBuilder: frameBuilder,
             );
           } else {
-            return frameBuilder(
-                context,
-                BookCardPlaceholder(title: widget.book.name, author: null),
-                null,
-                true);
+            return frameBuilder(context, BookCardPlaceholder(title: widget.book.name, author: null), null, true);
           }
         });
   }
 
-  Widget frameBuilder(BuildContext context, Widget child, int? frame,
-      bool wasSynchronouslyLoaded) {
-    return ClipRRect(
-        borderRadius: const BorderRadius.all(Radius.circular(5)), child: child);
+  Widget frameBuilder(BuildContext context, Widget child, int? frame, bool wasSynchronouslyLoaded) {
+    return ClipRRect(borderRadius: const BorderRadius.all(Radius.circular(5)), child: child);
   }
 
   void updateCover() {
     setState(() {
       final (width, _) = imageCacheSize(context);
-      _imageCover = context
-          .read<UserBooksRepository>()
-          .getCover(widget.book.thumbnailIri, width, null);
+      _imageCover = context.read<UserBooksRepository>().getCover(widget.book.thumbnailIri, width, null);
       urn = widget.book.thumbnailIri;
     });
   }

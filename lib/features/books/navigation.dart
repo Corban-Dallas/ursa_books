@@ -1,6 +1,5 @@
 import 'package:go_router/go_router.dart';
 import 'package:ursa_books/core/layout/split_layout.dart';
-import 'package:ursa_books/data/rust/api/books.dart';
 import 'package:ursa_books/data/rust/api/user_books.dart';
 import 'books.dart';
 
@@ -64,10 +63,5 @@ class BooksNavigation {
       id: state.pathParameters['bookId'] ?? '',
       book: state.extra as UserBook,
     ),
-    // pageBuilder: (context, state) => NoTransitionPage(
-    //     child: BookDetailsPage(
-    //   id: state.pathParameters['bookId'] ?? '',
-    //   book: state.extra as Book,
-    // )),
   );
 }

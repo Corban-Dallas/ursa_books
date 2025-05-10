@@ -4,11 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:go_router/go_router.dart';
 
-import 'package:ursa_books/features/books/domain/books_repository.dart';
 import 'package:ursa_books/features/books/domain/user_books_repository.dart';
+import 'package:ursa_books/features/books/ui/books_collection/view/books_list_view.dart';
 import 'package:ursa_books/features/books/ui/widgets/book_card.dart';
 
-import '../bloc/bloc.dart';
+import '../bloc/books_collection_bloc.dart';
+import '../bloc/book_import_cubit.dart';
 
 class BooksCollectionPage extends StatelessWidget {
   const BooksCollectionPage({super.key});
@@ -16,13 +17,11 @@ class BooksCollectionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(providers: [
-      BlocProvider<BooksCubit>(
-        create: (BuildContext context) =>
-            BooksCubit(context.read<UserBooksRepository>()),
+      BlocProvider<BooksListBloc>(
+        create: (BuildContext context) => BooksListBloc(context.read<UserBooksRepository>()),
       ),
       BlocProvider<BookImportCubit>(
-        create: (BuildContext context) =>
-            BookImportCubit(context.read<UserBooksRepository>()),
+        create: (BuildContext context) => BookImportCubit(context.read<UserBooksRepository>()),
       ),
     ], child: const BooksCollection());
   }
@@ -40,10 +39,10 @@ class _BooksCollection extends State<BooksCollection> {
   Widget build(BuildContext context) {
     return Scaffold(
       // appBar: AppBar(),
-      body: BlocBuilder<BooksCubit, List<UserBook>>(builder: (context, state) {
+      body: BlocBuilder<BooksListBloc, BooksCollectionState>(builder: (context, state) {
         return Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: booksGrid(context, state),
+          padding: const EdgeInsets.all(8.0),
+          child: state.isList ? booksList(context, state.items) : booksGrid(context, state.items),
         );
       }),
       floatingActionButton: FloatingActionButton(
@@ -51,6 +50,10 @@ class _BooksCollection extends State<BooksCollection> {
         child: const Icon(CupertinoIcons.plus),
       ),
     );
+  }
+
+  Widget booksList(BuildContext context, List<UserBook> books) {
+    return BooksListView(books: books, onTap: (book) => _onBookTap(context, book));
   }
 
   Widget booksGrid(BuildContext context, List<UserBook> books) {
@@ -77,9 +80,7 @@ class _BooksCollection extends State<BooksCollection> {
   }
 
   Widget addBookButton(BuildContext context) {
-    return IconButton(
-        onPressed: context.read<BookImportCubit>().importBook,
-        icon: const Icon(CupertinoIcons.plus));
+    return IconButton(onPressed: context.read<BookImportCubit>().importBook, icon: const Icon(CupertinoIcons.plus));
   }
 
   void _onBookTap(BuildContext context, UserBook book) {
