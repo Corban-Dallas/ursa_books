@@ -42,10 +42,6 @@ class BooksRepository {
     }
   }
 
-  Future<String> getContent(String fileUrn) async {
-    return await _ctr.getBookStr(urn: fileUrn);
-  }
-
   Future<void> importBook(String path) async {
     await _ctr.storeEpubBook(path: path);
   }

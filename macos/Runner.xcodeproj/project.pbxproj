@@ -88,6 +88,8 @@
 		9740EEB21CF90195004384FC /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		C3C38DC9AA41C7D0C9FF28D5 /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
 		D8AF76D88670AAF7EDFBE693 /* Pods-RunnerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.debug.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		F7CF61192DD89539005C58A8 /* libbz2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.tbd; path = usr/lib/libbz2.tbd; sourceTree = SDKROOT; };
+		F7CF611A2DD89555005C58A8 /* libbz2.1.0.8.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.1.0.8.tbd; path = usr/lib/libbz2.1.0.8.tbd; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,13 +197,14 @@
 				18771D28947F9FE433408AAF /* Pods-RunnerTests.release.xcconfig */,
 				5A7215B243F7B75AEDC25F88 /* Pods-RunnerTests.profile.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
 		D73912EC22F37F3D000D13A0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F7CF611A2DD89555005C58A8 /* libbz2.1.0.8.tbd */,
+				F7CF61192DD89539005C58A8 /* libbz2.tbd */,
 				924080111DABA9D0515510CB /* Pods_Runner.framework */,
 				12B47DC2DC6FAB7EB1484BB5 /* Pods_RunnerTests.framework */,
 			);

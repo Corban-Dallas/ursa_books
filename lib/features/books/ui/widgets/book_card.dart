@@ -26,17 +26,25 @@ class _BookCardState extends State<BookCard> {
   _BookCardState();
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    if (mounted && urn != widget.book.thumbnailIri) {
-      updateCover();
-    }
+  void initState() {
+    super.initState();
+    updateCover();
   }
+
+  // @override
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
+  //   if (mounted && urn != widget.book.thumbnailIri) {
+  //     updateCover();
+  //   }
+  // }
 
   @override
   void didUpdateWidget(BookCard oldWidget) {
     super.didUpdateWidget(oldWidget);
-    updateCover();
+    if (mounted && urn != widget.book.thumbnailIri) {
+      setState(updateCover);
+    }
   }
 
   @override
@@ -65,11 +73,11 @@ class _BookCardState extends State<BookCard> {
   }
 
   void updateCover() {
-    setState(() {
-      final (width, _) = imageCacheSize(context);
-      _imageCover = context.read<UserBooksRepository>().getCover(widget.book.thumbnailIri, width, null);
-      urn = widget.book.thumbnailIri;
-    });
+    // setState(() {
+    // final (width, _) = imageCacheSize(context);
+    _imageCover = context.read<UserBooksRepository>().getCover(widget.book.thumbnailIri, null, null);
+    urn = widget.book.thumbnailIri;
+    // });
   }
 
   (int?, int?) imageCacheSize(BuildContext context) {
