@@ -1,22 +1,21 @@
 import 'package:bloc/bloc.dart';
 import 'package:file_picker/file_picker.dart';
+import '../../../domain/user_books_repository.dart';
 
 export 'package:ursa_books/data/rust/third_party/ark_backend_api/creative_work/book.dart';
 export 'package:ursa_books/data/rust/api/books.dart';
 export 'package:ursa_books/data/rust/api/user_books.dart';
 
-import '../../../domain/user_books_repository.dart';
-
 part 'books_collection_event.dart';
 part 'books_collection_state.dart';
 
-class BooksListBloc extends Bloc<BooksListEvent, BooksCollectionState> {
+class BooksCollectionBloc extends Bloc<BooksCollectionEvent, BooksCollectionState> {
   final UserBooksRepository repository;
   OCTransaction<UserBook>? transaction;
 
-  BooksListBloc(this.repository) : super(BooksCollectionState()) {
+  BooksCollectionBloc(this.repository) : super(BooksCollectionState()) {
     on<BooksCollectionAddEvent>(_onAddBookTap);
-    on<BooksCollectionPresentationToogleEvent>(_onTooglePresentationTap);
+    on<BooksCollectionPresentationChangeEvent>(_onChangePresentationMode);
     on<RepositoryUserBookUpdate>(_handleOcEvent);
 
     repository.subscribe((event) {
@@ -33,9 +32,9 @@ class BooksListBloc extends Bloc<BooksListEvent, BooksCollectionState> {
     await repository.importBook(path);
   }
 
-  void _onTooglePresentationTap(BooksCollectionPresentationToogleEvent event, Emitter<BooksCollectionState> emit) {
-    var newState = state;
-    newState.isList = !state.isList;
+  void _onChangePresentationMode(BooksCollectionPresentationChangeEvent event, Emitter<BooksCollectionState> emit) {
+    var newState = state.copy();
+    newState.mode = event.mode;
     emit(newState);
   }
 

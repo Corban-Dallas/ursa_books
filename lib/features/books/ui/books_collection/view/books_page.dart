@@ -17,8 +17,8 @@ class BooksCollectionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(providers: [
-      BlocProvider<BooksListBloc>(
-        create: (BuildContext context) => BooksListBloc(context.read<UserBooksRepository>()),
+      BlocProvider<BooksCollectionBloc>(
+        create: (BuildContext context) => BooksCollectionBloc(context.read<UserBooksRepository>()),
       ),
       BlocProvider<BookImportCubit>(
         create: (BuildContext context) => BookImportCubit(context.read<UserBooksRepository>()),
@@ -37,19 +37,33 @@ class BooksCollection extends StatefulWidget {
 class _BooksCollection extends State<BooksCollection> {
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<BooksCollectionBloc, BooksCollectionState>(builder: (context, state) {
+      return mainContent(context, state);
+    });
+  }
+
+  Widget mainContent(BuildContext context, BooksCollectionState state) {
     return Scaffold(
-      // appBar: AppBar(),
-      body: BlocBuilder<BooksListBloc, BooksCollectionState>(builder: (context, state) {
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: state.isList ? booksList(context, state.items) : booksGrid(context, state.items),
-        );
-      }),
+      appBar: AppBar(centerTitle: true, title: appBar(context, state.mode)),
+      body: state.mode.isList ? booksList(context, state.items) : booksGrid(context, state.items),
       floatingActionButton: FloatingActionButton(
         onPressed: context.read<BookImportCubit>().importBook,
         child: const Icon(CupertinoIcons.plus),
       ),
     );
+  }
+
+  Widget appBar(BuildContext context, PresentationMode mode) {
+    const segments = [
+      ButtonSegment(value: PresentationMode.list, icon: Icon(CupertinoIcons.line_horizontal_3)),
+      ButtonSegment(value: PresentationMode.grid, icon: Icon(CupertinoIcons.square_grid_2x2_fill))
+    ];
+    return SegmentedButton(
+        segments: segments,
+        selected: {mode},
+        showSelectedIcon: false,
+        onSelectionChanged: (selection) =>
+            context.read<BooksCollectionBloc>().add(BooksCollectionPresentationChangeEvent(selection.first)));
   }
 
   Widget booksList(BuildContext context, List<UserBook> books) {
@@ -60,23 +74,27 @@ class _BooksCollection extends State<BooksCollection> {
     const double itemAspectRatio = 0.64;
     const double itemMaxWidth = 240;
     const double itemMaxHeight = itemMaxWidth / itemAspectRatio;
+    const double sidePadding = 12;
 
-    return GridView.extent(
-        maxCrossAxisExtent: itemMaxWidth,
-        mainAxisSpacing: 24,
-        crossAxisSpacing: 16,
-        childAspectRatio: itemAspectRatio,
-        children: List.generate(books.length, (index) {
-          return GestureDetector(
-              child: Hero(
-                  tag: books[index].book.id,
-                  child: BookCard(
-                    book: books[index].book,
-                    imageMaxWidth: itemMaxWidth,
-                    imageMaxHeight: itemMaxHeight,
-                  )),
-              onTap: () => _onBookTap(context, books[index]));
-        }));
+    return Padding(
+      padding: const EdgeInsets.only(left: sidePadding, right: sidePadding),
+      child: GridView.extent(
+          maxCrossAxisExtent: itemMaxWidth,
+          mainAxisSpacing: 24,
+          crossAxisSpacing: 16,
+          childAspectRatio: itemAspectRatio,
+          children: List.generate(books.length, (index) {
+            return GestureDetector(
+                child: Hero(
+                    tag: books[index].book.id,
+                    child: BookCard(
+                      book: books[index].book,
+                      imageMaxWidth: itemMaxWidth,
+                      imageMaxHeight: itemMaxHeight,
+                    )),
+                onTap: () => _onBookTap(context, books[index]));
+          })),
+    );
   }
 
   Widget addBookButton(BuildContext context) {

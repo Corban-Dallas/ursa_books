@@ -1,15 +1,22 @@
 part of 'books_collection_bloc.dart';
 
 class BooksCollectionState {
-  bool isList = true;
+  PresentationMode mode = PresentationMode.list;
   List<UserBook> items = List.empty();
 
   BooksCollectionState();
 
   BooksCollectionState copy() {
     var state = BooksCollectionState();
-    state.isList = isList;
+    state.mode = mode;
     state.items = List.of(items);
     return state;
   }
+}
+
+enum PresentationMode {
+  list,
+  grid;
+
+  bool get isList => this == PresentationMode.list;
 }

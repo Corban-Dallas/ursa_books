@@ -1,20 +1,21 @@
 part of 'books_collection_bloc.dart';
 
-sealed class BooksListEvent {
-  const BooksListEvent();
+sealed class BooksCollectionEvent {
+  const BooksCollectionEvent();
 }
 
-final class BooksCollectionAddEvent extends BooksListEvent {
+final class BooksCollectionAddEvent extends BooksCollectionEvent {
   const BooksCollectionAddEvent();
 }
 
 /// Switch grid/list
-final class BooksCollectionPresentationToogleEvent extends BooksListEvent {
-  const BooksCollectionPresentationToogleEvent();
+final class BooksCollectionPresentationChangeEvent extends BooksCollectionEvent {
+  final PresentationMode mode;
+  const BooksCollectionPresentationChangeEvent(this.mode);
 }
 
 // Repository update event
-final class RepositoryUserBookUpdate extends BooksListEvent {
+final class RepositoryUserBookUpdate extends BooksCollectionEvent {
   final FlatEventUserBook event;
   RepositoryUserBookUpdate(this.event);
 }
