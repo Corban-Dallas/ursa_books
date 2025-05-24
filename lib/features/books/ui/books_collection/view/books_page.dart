@@ -3,13 +3,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:go_router/go_router.dart';
+import 'package:ursa_books/app/portal.dart';
 
 import 'package:ursa_books/features/books/domain/user_books_repository.dart';
-import 'package:ursa_books/features/books/ui/books_collection/view/books_list_view.dart';
+// import 'package:ursa_books/features/books/ui/books_collection/view/books_list_view.dart';
 import 'package:ursa_books/features/books/ui/widgets/book_card.dart';
 
 import '../bloc/books_collection_bloc.dart';
 import '../bloc/book_import_cubit.dart';
+
+part 'books_list_view.dart';
 
 class BooksCollectionPage extends StatelessWidget {
   const BooksCollectionPage({super.key});
@@ -75,6 +78,7 @@ class _BooksCollection extends State<BooksCollection> {
     const double itemMaxWidth = 240;
     const double itemMaxHeight = itemMaxWidth / itemAspectRatio;
     const double sidePadding = 12;
+    final portal = context.read<Portal>();
 
     return Padding(
       padding: const EdgeInsets.only(left: sidePadding, right: sidePadding),
@@ -89,8 +93,7 @@ class _BooksCollection extends State<BooksCollection> {
                     tag: books[index].book.id,
                     child: BookCard(
                       book: books[index].book,
-                      imageMaxWidth: itemMaxWidth,
-                      imageMaxHeight: itemMaxHeight,
+                      imageProvider: portal.imageProvider(books[index].book.imageIri),
                     )),
                 onTap: () => _onBookTap(context, books[index]));
           })),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ursa_books/app/portal.dart';
 import 'package:ursa_books/data/rust/third_party/ark_application/application.dart';
 // third party
 import 'package:window_manager/window_manager.dart';
@@ -50,8 +51,7 @@ class MyApp extends StatefulWidget {
   }
 }
 
-final router = AppRouter(
-    activities: [Books.activity, Audiobooks.activity, Comics.activity]);
+final router = AppRouter(activities: [Books.activity, Audiobooks.activity, Comics.activity]);
 
 class _MyApp extends State<MyApp> {
   @override
@@ -61,6 +61,7 @@ class _MyApp extends State<MyApp> {
   }
 
   late DApplication app;
+  late DPortal portal;
   late ArkBooks booksCtr;
 
   bool started = false;
@@ -72,8 +73,9 @@ class _MyApp extends State<MyApp> {
     final dir = await getApplicationSupportDirectory();
     final appConfig = ApplicationConfig(storageDir: dir.path);
     app = await DApplication.run(config: appConfig);
-    final mainPortal = await app.mainPortal();
-    booksCtr = await mainPortal!.booksCtr();
+    final portal = await app.mainPortal();
+    this.portal = portal!;
+    booksCtr = portal.booksCtr();
 
     // Prepare model
     setState(() {
@@ -89,15 +91,34 @@ class _MyApp extends State<MyApp> {
       return const MaterialApp(home: LaunchPage());
     }
   }
+  // return MultiBlocProvider(providers: [
+  //   BlocProvider<BooksCollectionBloc>(
+  //     create: (BuildContext context) => BooksCollectionBloc(context.read<UserBooksRepository>()),
+  //   ),
+  //   BlocProvider<BookImportCubit>(
+  //     create: (BuildContext context) => BookImportCubit(context.read<UserBooksRepository>()),
+  //   ),
+  // ], child: const BooksCollection());
 
   Widget applicationBuilder(BuildContext context) {
-    return RepositoryProvider.value(
-      value: UserBooksRepository(booksCtr),
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider<UserBooksRepository>(create: (context) => UserBooksRepository(booksCtr)),
+        RepositoryProvider<Portal>(create: (context) => Portal(portal)),
+      ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         theme: getTheme(),
         routerConfig: router.router,
       ),
     );
+    // return RepositoryProvider.value(
+    //   value: UserBooksRepository(booksCtr),
+    //   child: MaterialApp.router(
+    //     debugShowCheckedModeBanner: false,
+    //     theme: getTheme(),
+    //     routerConfig: router.router,
+    //   ),
+    // );
   }
 }

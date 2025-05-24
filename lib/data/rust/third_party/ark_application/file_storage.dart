@@ -9,5 +9,5 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FileStorage>>
 abstract class FileStorage implements RustOpaqueInterface {
-  Future<Uint8List> getThumbnail({required String iri, ImageParams? params});
+  Future<Uint8List> getThumbnail({required String iri, ImageQuery? params});
 }

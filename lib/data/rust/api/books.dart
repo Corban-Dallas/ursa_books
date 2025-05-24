@@ -4,7 +4,6 @@
 // ignore_for_file: invalid_use_of_internal_member, unused_import, unnecessary_import
 
 import '../frb_generated.dart';
-import '../third_party/ark_application/file_storage/images.dart';
 import '../third_party/ark_backend_api/creative_work/book.dart';
 import '../third_party/ark_backend_api/creative_work/organization.dart';
 import '../third_party/ark_backend_api/creative_work/person.dart';
@@ -30,8 +29,6 @@ abstract class ArkBooks implements RustOpaqueInterface {
   Future<void> delete({required String id});
 
   Future<Uint8List> getBook({required String urn});
-
-  Future<Uint8List?> getCover({required String urn, ImageParams? params});
 
   Future<void> setCompleted({required bool completed, required String bookId});
 

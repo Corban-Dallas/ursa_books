@@ -1,10 +1,6 @@
-import 'dart:collection';
-import 'dart:typed_data';
-
 import 'package:ursa_books/data/rust/api/oc_observer.dart';
 import 'package:ursa_books/data/rust/api/books.dart';
 import 'package:ursa_books/data/rust/api/user_books.dart';
-import 'package:ursa_books/data/rust/third_party/ark_application/file_storage/images.dart';
 
 export 'package:ursa_books/data/rust/api/user_books.dart';
 
@@ -13,12 +9,7 @@ class UserBooksRepository {
   UserBooksCollection? _oc;
   OcSubscription? _subscription;
 
-  // Covers cache
-  final Map<String, (bool, Uint8List?)> _covers = HashMap();
-
-  UserBooksRepository(this._ctr) {
-    // createMoks();
-  }
+  UserBooksRepository(this._ctr);
 
   Future<void> subscribe(void Function(FlatEventUserBook) callback) async {
     _oc = await _ctr.createUserCollection();
@@ -32,18 +23,6 @@ class UserBooksRepository {
     _oc = null;
   }
 
-  Future<Uint8List?> getCover(String urn, [int? width, int? height]) async {
-    final params = ImageParams(
-        width: width?.toInt(), height: height?.toInt(), fill: false);
-    if (_covers[urn] == null) {
-      final cover = await _ctr.getCover(urn: urn, params: params);
-      _covers[urn] = (true, cover);
-      return cover;
-    } else {
-      return _covers[urn]?.$2;
-    }
-  }
-
   Future<void> importBook(String path) async {
     await _ctr.storeEpubBook(path: path);
   }
@@ -55,28 +34,4 @@ class UserBooksRepository {
   Future<void> setCompleted(bool completed, String id) async {
     await _ctr.setCompleted(completed: completed, bookId: id);
   }
-
-  // Mocks
-
-  // Future<void> createMoks() async {
-  //   const draft = BookDraft(
-  //       title: "Dune",
-  //       authors: ["Frank Herbert"],
-  //       number: "1",
-  //       numberType: 0,
-  //       imageUrn: "placeholder",
-  //       fileUrn: "placeholdder");
-
-  //   await _ctr.create(draft: draft);
-
-  //   const dune2 = BookDraft(
-  //       title: "Dune 2",
-  //       authors: ["Frank Herbert"],
-  //       number: "2",
-  //       numberType: 0,
-  //       imageUrn: "placeholder",
-  //       fileUrn: "placeholdder");
-
-  //   await _ctr.create(draft: dune2);
-  // }
 }

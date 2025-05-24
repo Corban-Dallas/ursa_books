@@ -1,98 +1,44 @@
-import 'dart:typed_data';
-import 'dart:async';
-
-import 'package:ursa_books/features/books/domain/user_books_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:ursa_books/data/image_provider.dart';
 import 'package:ursa_books/data/rust/third_party/ark_backend_api/creative_work/book.dart';
 
-class BookCard extends StatefulWidget {
+class BookCard extends StatelessWidget {
   final Book book;
+  final PortalImage imageProvider;
 
-  final double? imageMaxWidth;
-  final double? imageMaxHeight;
-
-  const BookCard({super.key, required this.book, this.imageMaxHeight, this.imageMaxWidth});
-
-  @override
-  State<StatefulWidget> createState() => _BookCardState();
-}
-
-class _BookCardState extends State<BookCard> {
-  late Future<Uint8List?> _imageCover;
-  String? urn;
-
-  _BookCardState();
-
-  @override
-  void initState() {
-    super.initState();
-    updateCover();
-  }
-
-  // @override
-  // void didChangeDependencies() {
-  //   super.didChangeDependencies();
-  //   if (mounted && urn != widget.book.thumbnailIri) {
-  //     updateCover();
-  //   }
-  // }
-
-  @override
-  void didUpdateWidget(BookCard oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (mounted && urn != widget.book.thumbnailIri) {
-      setState(updateCover);
-    }
-  }
+  const BookCard({super.key, required this.book, required this.imageProvider});
 
   @override
   Widget build(BuildContext context) {
-    return Container(alignment: Alignment.bottomCenter, child: buildCard(context));
+    return LayoutBuilder(builder: (context, constraints) {
+      return Image(
+          image: imageProvider,
+          width: constraints.hasBoundedWidth ? constraints.maxWidth : null,
+          height: constraints.hasBoundedHeight ? constraints.maxHeight : null,
+          fit: BoxFit.contain,
+          loadingBuilder: loadingBuilder,
+          frameBuilder: frameBuilder,
+          errorBuilder: placeholder);
+    });
   }
 
-  Widget buildCard(BuildContext context) {
-    return FutureBuilder(
-        future: _imageCover,
-        builder: (BuildContext context, AsyncSnapshot<Uint8List?> snapshot) {
-          if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
-            return Image.memory(
-              snapshot.data!,
-              fit: BoxFit.fill,
-              frameBuilder: frameBuilder,
-            );
-          } else {
-            return frameBuilder(context, BookCardPlaceholder(title: widget.book.name, author: null), null, true);
-          }
-        });
+  Widget loadingBuilder(BuildContext context, Widget widget, ImageChunkEvent? loadingProgress) {
+    if (loadingProgress == null) {
+      return widget;
+    } else {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+  }
+
+  Widget placeholder(BuildContext context, Object message, StackTrace? stackTrace) {
+    return BookCardPlaceholder(title: book.name, author: null);
   }
 
   Widget frameBuilder(BuildContext context, Widget child, int? frame, bool wasSynchronouslyLoaded) {
     return ClipRRect(borderRadius: const BorderRadius.all(Radius.circular(5)), child: child);
-  }
-
-  void updateCover() {
-    // setState(() {
-    // final (width, _) = imageCacheSize(context);
-    _imageCover = context.read<UserBooksRepository>().getCover(widget.book.thumbnailIri, null, null);
-    urn = widget.book.thumbnailIri;
-    // });
-  }
-
-  (int?, int?) imageCacheSize(BuildContext context) {
-    final media = MediaQuery.of(context);
-    final pixelRatio = media.devicePixelRatio;
-    double? height = widget.imageMaxHeight;
-    double? width = widget.imageMaxWidth;
-
-    if (width != null) {
-      width = width * pixelRatio;
-    }
-    if (height != null) {
-      height = height * pixelRatio;
-    }
-    return (width?.toInt(), height?.toInt());
   }
 }
 

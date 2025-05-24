@@ -5,18 +5,26 @@
 
 import '../frb_generated.dart';
 import '../third_party/ark_application/application.dart';
+import '../third_party/ark_application/file_storage/images.dart';
 import 'books.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<DApplication>>
 abstract class DApplication implements RustOpaqueInterface {
-  Future<Portal?> mainPortal();
+  Future<DPortal?> mainPortal();
 
   static Future<DApplication> run({required ApplicationConfig config}) =>
       RustLib.instance.api.crateApiCoreDApplicationRun(config: config);
 }
 
-// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Portal>>
-abstract class Portal implements RustOpaqueInterface {
-  Future<ArkBooks> booksCtr();
+// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<DPortal>>
+abstract class DPortal implements RustOpaqueInterface {
+  ArkBooks booksCtr();
+
+  FileProvider fileProvider();
+}
+
+// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FileProvider>>
+abstract class FileProvider implements RustOpaqueInterface {
+  Future<Uint8List?> getImage({required String urn, ImageQuery? params});
 }

@@ -6,8 +6,7 @@
 import '../../../frb_generated.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
-// These types are ignored because they are neither used by any `pub` functions nor (for structs and enums) marked `#[frb(unignore)]`: `PersonDraft`
-// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `clone`, `fmt`, `fmt`
+// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `assert_receiver_is_total_eq`, `clone`, `clone`, `eq`, `fmt`, `fmt`, `fmt`, `hash`
 
 class Person {
   final String id;
@@ -46,4 +45,63 @@ class Person {
           familyName == other.familyName &&
           iri == other.iri &&
           imageIri == other.imageIri;
+}
+
+class PersonDraft {
+  final String name;
+  final String givenName;
+  final String familyName;
+  final String iri;
+  final String imageIri;
+
+  const PersonDraft({
+    required this.name,
+    required this.givenName,
+    required this.familyName,
+    required this.iri,
+    required this.imageIri,
+  });
+
+  static Future<PersonDraft> default_() =>
+      RustLib.instance.api.arkBackendApiCreativeWorkPersonPersonDraftDefault();
+
+  @override
+  int get hashCode =>
+      name.hashCode ^
+      givenName.hashCode ^
+      familyName.hashCode ^
+      iri.hashCode ^
+      imageIri.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is PersonDraft &&
+          runtimeType == other.runtimeType &&
+          name == other.name &&
+          givenName == other.givenName &&
+          familyName == other.familyName &&
+          iri == other.iri &&
+          imageIri == other.imageIri;
+}
+
+class PersonFilter {
+  final String? name;
+
+  const PersonFilter({
+    this.name,
+  });
+
+  static Future<PersonFilter> default_() =>
+      RustLib.instance.api.arkBackendApiCreativeWorkPersonPersonFilterDefault();
+
+  @override
+  int get hashCode => name.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is PersonFilter &&
+          runtimeType == other.runtimeType &&
+          name == other.name;
 }

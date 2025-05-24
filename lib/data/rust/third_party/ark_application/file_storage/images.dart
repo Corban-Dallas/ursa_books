@@ -6,12 +6,14 @@
 import '../../../frb_generated.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
-class ImageParams {
+// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `fmt`
+
+class ImageQuery {
   final int? width;
   final int? height;
   final bool fill;
 
-  const ImageParams({
+  const ImageQuery({
     this.width,
     this.height,
     required this.fill,
@@ -23,7 +25,7 @@ class ImageParams {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ImageParams &&
+      other is ImageQuery &&
           runtimeType == other.runtimeType &&
           width == other.width &&
           height == other.height &&
