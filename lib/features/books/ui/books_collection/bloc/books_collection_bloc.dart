@@ -87,10 +87,10 @@ class BooksCollectionBloc extends Bloc<BooksCollectionEvent, BooksCollectionStat
       case FlatEventUserBook_Move(start: final start, end: final end, offset: final offset):
         if (transaction == null) {
           var newState = state.copy();
-          newState.items.move(start.toInt(), end.toInt(), offset);
+          newState.items.move(start.toInt(), end.toInt(), offset.toInt());
           emit(newState);
         } else {
-          transaction!.move(start, end, offset);
+          transaction!.move(start, end, offset.toInt());
         }
     }
   }
