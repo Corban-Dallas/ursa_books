@@ -52,6 +52,8 @@ dependencies:
   lottie: ^3.3.0
   freezed_annotation: ^3.0.0
 
+  skeletonizer: ^2.0.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

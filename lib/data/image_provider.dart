@@ -75,3 +75,16 @@ class PortalImage extends ImageProvider<DImageQuery> {
   @override
   String toString() => '${objectRuntimeType(this, 'PortalImage')}("$iri")';
 }
+
+// Preview provider with fixed image size
+
+class PortalPreviewImage extends PortalImage {
+  PortalPreviewImage(super.iri, super.provider);
+
+  @override
+  Future<DImageQuery> obtainKey(ImageConfiguration configuration) {
+    final config = configuration.copyWith(size: Size.square(300));
+    final result = DImageQuery(iri, config);
+    return SynchronousFuture<DImageQuery>(result);
+  }
+}

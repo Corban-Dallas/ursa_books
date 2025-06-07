@@ -93,7 +93,7 @@ class _BooksCollection extends State<BooksCollection> {
                     tag: books[index].book.id,
                     child: BookCard(
                       book: books[index].book,
-                      imageProvider: portal.imageProvider(books[index].book.imageIri),
+                      imageProvider: portal.previewProvider(books[index].book.imageIri),
                     )),
                 onTap: () => _onBookTap(context, books[index]));
           })),

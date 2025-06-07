@@ -10,4 +10,8 @@ class Portal {
   PortalImage imageProvider(String urn) {
     return PortalImage(urn, fileProvider);
   }
+
+  PortalImage previewProvider(String urn) {
+    return PortalPreviewImage(urn, fileProvider);
+  }
 }
