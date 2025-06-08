@@ -9,7 +9,7 @@ PODS:
     - FlutterMacOS
   - screen_retriever_macos (0.0.1):
     - FlutterMacOS
-  - window_manager (0.2.0):
+  - window_manager (0.5.0):
     - FlutterMacOS
 
 DEPENDENCIES:
@@ -40,7 +40,7 @@ SPEC CHECKSUMS:
   path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
   rust_lib_ursa_books: 6c94610574f1cb5af027144226bd0095d906f41f
   screen_retriever_macos: 776e0fa5d42c6163d2bf772d22478df4b302b161
-  window_manager: 3a1844359a6295ab1e47659b1a777e36773cd6e8
+  window_manager: e25faf20d88283a0d46e7b1a759d07261ca27575
 
 PODFILE CHECKSUM: 236401fc2c932af29a9fcf0e97baeeb2d750d367
 
