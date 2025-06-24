@@ -21,7 +21,11 @@ class BookDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => BookDetailsBloc(booksRepository: context.read<UserBooksRepository>(), id: id, book: _book),
+      create: (context) {
+        final ctr = context.read<Portal>().booksCtr();
+        final rep = UserBooksRepository(ctr);
+        return BookDetailsBloc(booksRepository: rep, id: id, book: _book);
+      },
       child: BookDetailsView(),
     );
   }

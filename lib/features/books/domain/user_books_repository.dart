@@ -13,7 +13,7 @@ class UserBooksRepository {
 
   Future<void> subscribe(void Function(FlatEventUserBook) callback) async {
     _oc = await _ctr.createUserCollection();
-    _subscription = await _oc!.subscribe(callback: (event) => callback(event));
+    await _oc!.subscribe(callback: callback);
   }
 
   void unsubscribe() {

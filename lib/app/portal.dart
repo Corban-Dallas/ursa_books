@@ -1,4 +1,5 @@
 import 'package:ursa_books/data/image_provider.dart';
+import 'package:ursa_books/data/rust/api/books.dart';
 import 'package:ursa_books/data/rust/api/core.dart';
 
 class Portal {
@@ -13,5 +14,9 @@ class Portal {
 
   PortalImage previewProvider(String urn) {
     return PortalPreviewImage(urn, fileProvider);
+  }
+
+  ArkBooks booksCtr() {
+    return portal.booksCtr();
   }
 }

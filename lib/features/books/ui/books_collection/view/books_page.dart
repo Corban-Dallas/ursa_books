@@ -6,7 +6,6 @@ import 'package:go_router/go_router.dart';
 import 'package:ursa_books/app/portal.dart';
 
 import 'package:ursa_books/features/books/domain/user_books_repository.dart';
-// import 'package:ursa_books/features/books/ui/books_collection/view/books_list_view.dart';
 import 'package:ursa_books/features/books/ui/widgets/book_card.dart';
 
 import '../bloc/books_collection_bloc.dart';
@@ -19,25 +18,24 @@ class BooksCollectionPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ctr = context.read<Portal>().booksCtr();
     return MultiBlocProvider(providers: [
       BlocProvider<BooksCollectionBloc>(
-        create: (BuildContext context) => BooksCollectionBloc(context.read<UserBooksRepository>()),
+        create: (BuildContext context) {
+          final repository = UserBooksRepository(ctr);
+          return BooksCollectionBloc(repository);
+        },
       ),
       BlocProvider<BookImportCubit>(
-        create: (BuildContext context) => BookImportCubit(context.read<UserBooksRepository>()),
+        create: (BuildContext context) => BookImportCubit(ctr),
       ),
     ], child: const BooksCollection());
   }
 }
 
-class BooksCollection extends StatefulWidget {
+class BooksCollection extends StatelessWidget {
   const BooksCollection({super.key});
 
-  @override
-  State<BooksCollection> createState() => _BooksCollection();
-}
-
-class _BooksCollection extends State<BooksCollection> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<BooksCollectionBloc, BooksCollectionState>(builder: (context, state) {
@@ -61,12 +59,14 @@ class _BooksCollection extends State<BooksCollection> {
       ButtonSegment(value: PresentationMode.list, icon: Icon(CupertinoIcons.line_horizontal_3)),
       ButtonSegment(value: PresentationMode.grid, icon: Icon(CupertinoIcons.square_grid_2x2_fill))
     ];
+    final bloc = context.read<BooksCollectionBloc>();
+
     return SegmentedButton(
-        segments: segments,
-        selected: {mode},
-        showSelectedIcon: false,
-        onSelectionChanged: (selection) =>
-            context.read<BooksCollectionBloc>().add(BooksCollectionPresentationChangeEvent(selection.first)));
+      segments: segments,
+      selected: {mode},
+      showSelectedIcon: false,
+      onSelectionChanged: (selection) => bloc.add(BooksCollectionPresentationChangeEvent(selection.first)),
+    );
   }
 
   Widget booksList(BuildContext context, List<UserBook> books) {

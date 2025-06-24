@@ -18,10 +18,17 @@ class BooksCollectionBloc extends Bloc<BooksCollectionEvent, BooksCollectionStat
     on<BooksCollectionPresentationChangeEvent>(_onChangePresentationMode);
     on<RepositoryUserBookUpdate>(_handleOcEvent);
 
-    repository.subscribe((event) {
-      final e = RepositoryUserBookUpdate(event);
-      add(e);
-    });
+    repository.subscribe(_collectionEvent);
+    // repository.subscribe((e) {});
+  }
+
+  void dispose() {
+    repository.unsubscribe();
+  }
+
+  void _collectionEvent(FlatEventUserBook event) {
+    final e = RepositoryUserBookUpdate(event);
+    add(e);
   }
 
   Future<void> _onAddBookTap(BooksCollectionAddEvent event, Emitter<BooksCollectionState> emit) async {

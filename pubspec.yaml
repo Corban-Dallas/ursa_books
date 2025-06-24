@@ -32,7 +32,7 @@ dependencies:
     sdk: flutter
   
   platform: ^3.1.2
-  ffi: ^2.0.1
+  ffi: ^2.1.4
   cupertino_icons: ^1.0.8
 
   # Rust backend module
@@ -44,8 +44,8 @@ dependencies:
   flutter_bloc: ^9.0.0
   uuid: ^4.5.1
   path_provider: ^2.1.1
-  go_router: ^15.1.2
-  file_picker: ^10.1.0
+  go_router: ^15.2.4
+  file_picker: ^10.2.0
   window_manager: ^0.5.0
   equatable: ^2.0.0
   lottie: ^3.3.0
@@ -54,21 +54,25 @@ dependencies:
   skeletonizer: ^2.0.1
 
 dev_dependencies:
-  meta: ^1.8.0
+  meta: ^1.16.0
 
   flutter_test:
     sdk: flutter
   integration_test:
     sdk: flutter
 
+
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^5.0.0
+  flutter_lints: 6.0.0
+  # custom_lint: ^0.7.0
+  # bloc_lint: 0.1.0
+
   freezed: ^3.0.0
-  build_runner: ^2.4.15
+  build_runner: ^2.5.4
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
