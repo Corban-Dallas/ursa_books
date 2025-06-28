@@ -8,6 +8,6 @@ final class BookDetailsTapDelete extends BookDetailsEvent {
   const BookDetailsTapDelete();
 }
 
-final class BookDetailsCompleteToogled extends BookDetailsEvent {
-  const BookDetailsCompleteToogled();
+final class BookDetailsCompletionStateToogled extends BookDetailsEvent {
+  const BookDetailsCompletionStateToogled();
 }

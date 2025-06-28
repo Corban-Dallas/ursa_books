@@ -14,7 +14,7 @@ class BookDetailsBloc extends Bloc<BookDetailsEvent, BookDetailsState> {
       : _booksRepository = booksRepository,
         super(BookDetailsState(id: id, book: book)) {
     on<BookDetailsTapDelete>(_onTapDelete);
-    on<BookDetailsCompleteToogled>(_onCompleteToogled);
+    on<BookDetailsCompletionStateToogled>(_onCompleteToogled);
   }
 
   final UserBooksRepository _booksRepository;

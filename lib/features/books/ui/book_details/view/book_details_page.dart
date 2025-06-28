@@ -242,7 +242,7 @@ class BookDetailsView extends StatelessWidget {
 
     return OutlinedButton(
         child: Text(completed ? "Completed" : "Uncompleted"),
-        onPressed: () => context.read<BookDetailsBloc>().add(const BookDetailsCompleteToogled()));
+        onPressed: () => context.read<BookDetailsBloc>().add(const BookDetailsCompletionStateToogled()));
   }
 
   Widget deleteButton(BuildContext context) {
