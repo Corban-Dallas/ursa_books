@@ -22,6 +22,7 @@ class BooksListView extends StatelessWidget {
   Widget bookRow(BuildContext context, UserBook book) {
     final portal = context.read<Portal>();
     final author = book.book.creatorPersons.firstOrNull?.name;
+    final isCompleted = book.userData?.completed == true ? true : false;
 
     return ListTile(
       leading: ConstrainedBox(
@@ -32,6 +33,7 @@ class BooksListView extends StatelessWidget {
         ),
       ),
       subtitle: author == null ? null : Text(author),
+      trailing: isCompleted ? Icon(CupertinoIcons.check_mark_circled_solid) : null,
       contentPadding: EdgeInsets.only(top: 4, right: 12, bottom: 4),
       title: Text(book.book.name),
       onTap: () => _onTap(book),
