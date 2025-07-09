@@ -59,6 +59,14 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
           .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerOCSubscription;
 
   CrossPlatformFinalizerArg
+      get rust_arc_decrement_strong_count_RBookBindingPtr => wire
+          .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRBookBinding;
+
+  CrossPlatformFinalizerArg
+      get rust_arc_decrement_strong_count_RBookSubscriptionPtr => wire
+          .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRBookSubscription;
+
+  CrossPlatformFinalizerArg
       get rust_arc_decrement_strong_count_UserBooksCollectionPtr => wire
           .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerUserBooksCollection;
 
@@ -98,6 +106,16 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   @protected
   OcSubscription
       dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerOCSubscription(
+          dynamic raw);
+
+  @protected
+  RBookBinding
+      dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRBookBinding(
+          dynamic raw);
+
+  @protected
+  RBookSubscription
+      dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRBookSubscription(
           dynamic raw);
 
   @protected
@@ -141,6 +159,11 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
           dynamic raw);
 
   @protected
+  RBookBinding
+      dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRBookBinding(
+          dynamic raw);
+
+  @protected
   FutureOr<void> Function(FlatEventBook)
       dco_decode_DartFn_Inputs_flat_event_book_Output_unit_AnyhowException(
           dynamic raw);
@@ -148,6 +171,11 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   @protected
   FutureOr<void> Function(FlatEventUserBook)
       dco_decode_DartFn_Inputs_flat_event_user_book_Output_unit_AnyhowException(
+          dynamic raw);
+
+  @protected
+  FutureOr<void> Function(RBookEntityEvent)
+      dco_decode_DartFn_Inputs_r_book_entity_event_Output_unit_AnyhowException(
           dynamic raw);
 
   @protected
@@ -189,6 +217,16 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
           dynamic raw);
 
   @protected
+  RBookBinding
+      dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRBookBinding(
+          dynamic raw);
+
+  @protected
+  RBookSubscription
+      dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRBookSubscription(
+          dynamic raw);
+
+  @protected
   UserBooksCollection
       dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerUserBooksCollection(
           dynamic raw);
@@ -223,6 +261,11 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   @protected
   DPortal
       dco_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDPortal(
+          dynamic raw);
+
+  @protected
+  RBookBinding
+      dco_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRBookBinding(
           dynamic raw);
 
   @protected
@@ -291,6 +334,11 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
           dynamic raw);
 
   @protected
+  RBookBinding?
+      dco_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRBookBinding(
+          dynamic raw);
+
+  @protected
   BookUserData? dco_decode_opt_box_autoadd_book_user_data(dynamic raw);
 
   @protected
@@ -316,6 +364,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   PersonFilter dco_decode_person_filter(dynamic raw);
+
+  @protected
+  RBookEntityEvent dco_decode_r_book_entity_event(dynamic raw);
 
   @protected
   Subject dco_decode_subject(dynamic raw);
@@ -377,6 +428,16 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
           SseDeserializer deserializer);
 
   @protected
+  RBookBinding
+      sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRBookBinding(
+          SseDeserializer deserializer);
+
+  @protected
+  RBookSubscription
+      sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRBookSubscription(
+          SseDeserializer deserializer);
+
+  @protected
   UserBooksCollection
       sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerUserBooksCollection(
           SseDeserializer deserializer);
@@ -414,6 +475,11 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   @protected
   FileStorage
       sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileStorage(
+          SseDeserializer deserializer);
+
+  @protected
+  RBookBinding
+      sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRBookBinding(
           SseDeserializer deserializer);
 
   @protected
@@ -455,6 +521,16 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
           SseDeserializer deserializer);
 
   @protected
+  RBookBinding
+      sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRBookBinding(
+          SseDeserializer deserializer);
+
+  @protected
+  RBookSubscription
+      sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRBookSubscription(
+          SseDeserializer deserializer);
+
+  @protected
   UserBooksCollection
       sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerUserBooksCollection(
           SseDeserializer deserializer);
@@ -490,6 +566,11 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   @protected
   DPortal
       sse_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDPortal(
+          SseDeserializer deserializer);
+
+  @protected
+  RBookBinding
+      sse_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRBookBinding(
           SseDeserializer deserializer);
 
   @protected
@@ -561,6 +642,11 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
           SseDeserializer deserializer);
 
   @protected
+  RBookBinding?
+      sse_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRBookBinding(
+          SseDeserializer deserializer);
+
+  @protected
   BookUserData? sse_decode_opt_box_autoadd_book_user_data(
       SseDeserializer deserializer);
 
@@ -588,6 +674,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   PersonFilter sse_decode_person_filter(SseDeserializer deserializer);
+
+  @protected
+  RBookEntityEvent sse_decode_r_book_entity_event(SseDeserializer deserializer);
 
   @protected
   Subject sse_decode_subject(SseDeserializer deserializer);
@@ -654,6 +743,16 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void
+      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRBookBinding(
+          RBookBinding self, SseSerializer serializer);
+
+  @protected
+  void
+      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRBookSubscription(
+          RBookSubscription self, SseSerializer serializer);
+
+  @protected
+  void
       sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerUserBooksCollection(
           UserBooksCollection self, SseSerializer serializer);
 
@@ -693,6 +792,11 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
           FileStorage self, SseSerializer serializer);
 
   @protected
+  void
+      sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRBookBinding(
+          RBookBinding self, SseSerializer serializer);
+
+  @protected
   void sse_encode_DartFn_Inputs_flat_event_book_Output_unit_AnyhowException(
       FutureOr<void> Function(FlatEventBook) self, SseSerializer serializer);
 
@@ -701,6 +805,10 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
       sse_encode_DartFn_Inputs_flat_event_user_book_Output_unit_AnyhowException(
           FutureOr<void> Function(FlatEventUserBook) self,
           SseSerializer serializer);
+
+  @protected
+  void sse_encode_DartFn_Inputs_r_book_entity_event_Output_unit_AnyhowException(
+      FutureOr<void> Function(RBookEntityEvent) self, SseSerializer serializer);
 
   @protected
   void sse_encode_DartOpaque(Object self, SseSerializer serializer);
@@ -742,6 +850,16 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void
+      sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRBookBinding(
+          RBookBinding self, SseSerializer serializer);
+
+  @protected
+  void
+      sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRBookSubscription(
+          RBookSubscription self, SseSerializer serializer);
+
+  @protected
+  void
       sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerUserBooksCollection(
           UserBooksCollection self, SseSerializer serializer);
 
@@ -778,6 +896,11 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void
       sse_encode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDPortal(
           DPortal self, SseSerializer serializer);
+
+  @protected
+  void
+      sse_encode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRBookBinding(
+          RBookBinding self, SseSerializer serializer);
 
   @protected
   void sse_encode_box_autoadd_application_config(
@@ -854,6 +977,11 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
           DPortal? self, SseSerializer serializer);
 
   @protected
+  void
+      sse_encode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRBookBinding(
+          RBookBinding? self, SseSerializer serializer);
+
+  @protected
   void sse_encode_opt_box_autoadd_book_user_data(
       BookUserData? self, SseSerializer serializer);
 
@@ -882,6 +1010,10 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void sse_encode_person_filter(PersonFilter self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_r_book_entity_event(
+      RBookEntityEvent self, SseSerializer serializer);
 
   @protected
   void sse_encode_subject(Subject self, SseSerializer serializer);
@@ -997,6 +1129,30 @@ class RustLibWire implements BaseWire {
           .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerOCSubscription(
               ptr);
 
+  void rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRBookBinding(
+          int ptr) =>
+      wasmModule
+          .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRBookBinding(
+              ptr);
+
+  void rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRBookBinding(
+          int ptr) =>
+      wasmModule
+          .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRBookBinding(
+              ptr);
+
+  void rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRBookSubscription(
+          int ptr) =>
+      wasmModule
+          .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRBookSubscription(
+              ptr);
+
+  void rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRBookSubscription(
+          int ptr) =>
+      wasmModule
+          .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRBookSubscription(
+              ptr);
+
   void rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerUserBooksCollection(
           int ptr) =>
       wasmModule
@@ -1070,6 +1226,22 @@ extension type RustLibWasmModule._(JSObject _) implements JSObject {
 
   external void
       rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerOCSubscription(
+          int ptr);
+
+  external void
+      rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRBookBinding(
+          int ptr);
+
+  external void
+      rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRBookBinding(
+          int ptr);
+
+  external void
+      rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRBookSubscription(
+          int ptr);
+
+  external void
+      rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRBookSubscription(
           int ptr);
 
   external void

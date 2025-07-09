@@ -1,30 +1,34 @@
 import 'package:bloc/bloc.dart';
 
-import 'package:ursa_books/data/rust/third_party/ark_backend_api/creative_work/book.dart';
-import '../../../domain/user_books_repository.dart';
+// import 'package:ursa_books/data/rust/third_party/ark_backend_api/creative_work/book.dart';
+import 'package:ursa_books/features/books/ui/books_collection/bloc/books_collection_bloc.dart';
+// import '../../../domain/user_books_repository.dart';
 
 part 'book_details_event.dart';
 part 'book_details_state.dart';
 
 class BookDetailsBloc extends Bloc<BookDetailsEvent, BookDetailsState> {
-  BookDetailsBloc(
-      {required UserBooksRepository booksRepository,
-      required String id,
-      UserBook? book})
-      : _booksRepository = booksRepository,
-        super(BookDetailsState(id: id, book: book)) {
+  BookDetailsBloc({required ArkBooks ctr, required String id, UserBook? book})
+      : _ctr = ctr,
+        super(BookDetailsState(id: id, book: null)) {
     on<BookDetailsTapDelete>(_onTapDelete);
     on<BookDetailsCompletionStateToogled>(_onCompleteToogled);
+    on<BookDetailsInitial>(_initialSetup);
+    on<BookDetailsBindingEvent>(_bindingEvent);
+    add(BookDetailsInitial());
   }
 
-  final UserBooksRepository _booksRepository;
+  final ArkBooks _ctr;
+  RBookBinding? _binding;
+  RBookSubscription? _subscription;
 
   Future<void> _onTapDelete(
     BookDetailsEvent event,
     Emitter<BookDetailsState> emit,
   ) async {
-    await _booksRepository.delete(state.id);
-    emit(state.copyWith(status: Status.deleted));
+    // await _booksRepository.delete(state.id);
+    await _binding?.delete();
+    // emit(state.copyWith(status: Status.deleted));
   }
 
   Future<void> _onCompleteToogled(
@@ -33,12 +37,34 @@ class BookDetailsBloc extends Bloc<BookDetailsEvent, BookDetailsState> {
   ) async {
     var completed = state.book?.userData?.completed ?? false;
     completed = !completed;
-    await _booksRepository.setCompleted(completed, state.id);
-    // await _booksRepository.setCompleted(completed, id)
-
-    // await _booksRepository.delete(state.id);
-    // emit(state.copyWith(status: Status.deleted));
+    await _binding?.setCompleted(completed: completed);
   }
 
-  _initialFetch() {}
+  Future<void> _initialSetup(
+    BookDetailsEvent event,
+    Emitter<BookDetailsState> emit,
+  ) async {
+    final binding = await _ctr.bookBinding(id: state.id);
+    if (binding == null) {
+      return;
+    }
+    final book = await binding.getModel();
+    final newState = state.copyWith(book: book, status: Status.success);
+    _binding = binding;
+    emit(newState);
+
+    final weakSelf = WeakReference(this);
+    _subscription = await binding.subscribe(callback: (event) => weakSelf.target?.add(BookDetailsBindingEvent(event)));
+  }
+
+  Future<void> _bindingEvent(BookDetailsBindingEvent event, Emitter<BookDetailsState> emit) async {
+    switch (event.event) {
+      case RBookEntityEvent_Deleted():
+        emit(state.copyWith(status: Status.deleted));
+      // return;
+      case RBookEntityEvent_Updated(field0: var book):
+        final newState = state.copyWith(book: book, status: Status.success);
+        emit(newState);
+    }
+  }
 }

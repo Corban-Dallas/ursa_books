@@ -11,3 +11,12 @@ final class BookDetailsTapDelete extends BookDetailsEvent {
 final class BookDetailsCompletionStateToogled extends BookDetailsEvent {
   const BookDetailsCompletionStateToogled();
 }
+
+final class BookDetailsInitial extends BookDetailsEvent {
+  const BookDetailsInitial();
+}
+
+final class BookDetailsBindingEvent extends BookDetailsEvent {
+  final RBookEntityEvent event;
+  BookDetailsBindingEvent(this.event);
+}

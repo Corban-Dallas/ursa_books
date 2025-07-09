@@ -9,17 +9,21 @@ import '../third_party/ark_backend_api/creative_work/organization.dart';
 import '../third_party/ark_backend_api/creative_work/person.dart';
 import '../third_party/ark_backend_api/creative_work/subject.dart';
 import '../third_party/ark_backend_api/creative_work/text_object.dart';
+import '../third_party/ark_backend_api/personal_data/book_user_data.dart';
 import 'oc_observer.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'package:freezed_annotation/freezed_annotation.dart' hide protected;
 import 'user_books.dart';
 part 'books.freezed.dart';
 
+// These functions are ignored because they are not marked as `pub`: `drop`, `new`
 // These types are ignored because they are neither used by any `pub` functions nor (for structs and enums) marked `#[frb(unignore)]`: `DartBookFlatOCObserver`
 // These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `from`, `reset`, `update`
 
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<ArkBooks>>
 abstract class ArkBooks implements RustOpaqueInterface {
+  Future<RBookBinding?> bookBinding({required String id});
+
   Future<String?> create({required BookDraft draft});
 
   Future<BooksObservableCollection> createCollection();
@@ -40,6 +44,21 @@ abstract class BooksObservableCollection implements RustOpaqueInterface {
   Future<OcSubscription> subscribe(
       {required FutureOr<void> Function(FlatEventBook) callback});
 }
+
+// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RBookBinding>>
+abstract class RBookBinding implements RustOpaqueInterface {
+  Future<void> delete();
+
+  Future<UserBook> getModel();
+
+  Future<void> setCompleted({required bool completed});
+
+  Future<RBookSubscription> subscribe(
+      {required FutureOr<void> Function(RBookEntityEvent) callback});
+}
+
+// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RBookSubscription>>
+abstract class RBookSubscription implements RustOpaqueInterface {}
 
 @freezed
 sealed class FlatEventBook with _$FlatEventBook {
@@ -69,4 +88,14 @@ sealed class FlatEventBook with _$FlatEventBook {
     required BigInt end,
     required PlatformInt64 offset,
   }) = FlatEventBook_Move;
+}
+
+@freezed
+sealed class RBookEntityEvent with _$RBookEntityEvent {
+  const RBookEntityEvent._();
+
+  const factory RBookEntityEvent.updated(
+    UserBook field0,
+  ) = RBookEntityEvent_Updated;
+  const factory RBookEntityEvent.deleted() = RBookEntityEvent_Deleted;
 }

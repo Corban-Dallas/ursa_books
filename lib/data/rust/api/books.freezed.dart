@@ -456,4 +456,112 @@ class _$FlatEventBook_MoveCopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
+mixin _$RBookEntityEvent {
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is RBookEntityEvent);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'RBookEntityEvent()';
+  }
+}
+
+/// @nodoc
+class $RBookEntityEventCopyWith<$Res> {
+  $RBookEntityEventCopyWith(
+      RBookEntityEvent _, $Res Function(RBookEntityEvent) __);
+}
+
+/// @nodoc
+
+class RBookEntityEvent_Updated extends RBookEntityEvent {
+  const RBookEntityEvent_Updated(this.field0) : super._();
+
+  final UserBook field0;
+
+  /// Create a copy of RBookEntityEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $RBookEntityEvent_UpdatedCopyWith<RBookEntityEvent_Updated> get copyWith =>
+      _$RBookEntityEvent_UpdatedCopyWithImpl<RBookEntityEvent_Updated>(
+          this, _$identity);
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is RBookEntityEvent_Updated &&
+            (identical(other.field0, field0) || other.field0 == field0));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, field0);
+
+  @override
+  String toString() {
+    return 'RBookEntityEvent.updated(field0: $field0)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $RBookEntityEvent_UpdatedCopyWith<$Res>
+    implements $RBookEntityEventCopyWith<$Res> {
+  factory $RBookEntityEvent_UpdatedCopyWith(RBookEntityEvent_Updated value,
+          $Res Function(RBookEntityEvent_Updated) _then) =
+      _$RBookEntityEvent_UpdatedCopyWithImpl;
+  @useResult
+  $Res call({UserBook field0});
+}
+
+/// @nodoc
+class _$RBookEntityEvent_UpdatedCopyWithImpl<$Res>
+    implements $RBookEntityEvent_UpdatedCopyWith<$Res> {
+  _$RBookEntityEvent_UpdatedCopyWithImpl(this._self, this._then);
+
+  final RBookEntityEvent_Updated _self;
+  final $Res Function(RBookEntityEvent_Updated) _then;
+
+  /// Create a copy of RBookEntityEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? field0 = null,
+  }) {
+    return _then(RBookEntityEvent_Updated(
+      null == field0
+          ? _self.field0
+          : field0 // ignore: cast_nullable_to_non_nullable
+              as UserBook,
+    ));
+  }
+}
+
+/// @nodoc
+
+class RBookEntityEvent_Deleted extends RBookEntityEvent {
+  const RBookEntityEvent_Deleted() : super._();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is RBookEntityEvent_Deleted);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'RBookEntityEvent.deleted()';
+  }
+}
+
 // dart format on

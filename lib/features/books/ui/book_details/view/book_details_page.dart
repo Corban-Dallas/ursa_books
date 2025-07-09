@@ -23,8 +23,7 @@ class BookDetailsPage extends StatelessWidget {
     return BlocProvider(
       create: (context) {
         final ctr = context.read<Portal>().booksCtr();
-        final rep = UserBooksRepository(ctr);
-        return BookDetailsBloc(booksRepository: rep, id: id, book: _book);
+        return BookDetailsBloc(ctr: ctr, id: id, book: _book);
       },
       child: BookDetailsView(),
     );
@@ -34,23 +33,28 @@ class BookDetailsPage extends StatelessWidget {
 class BookDetailsView extends StatelessWidget {
   BookDetailsView({super.key});
 
-  static double compactLayoutThreshold = 500;
+  static double compactLayoutThreshold = 400;
   static double coverMaxWidth = 220;
 
   @override
   Widget build(BuildContext context) {
     return blocProvider(context,
         builder: (context, state) => LayoutBuilder(builder: (context, constraints) {
-              final isWide = constraints.maxWidth > compactLayoutThreshold;
-              if (isWide) {
-                return wideLayout(context, constraints, state);
-              } else {
-                return compactLayout(context, constraints, state);
+              switch (state.status) {
+                case Status.success:
+                  final isWide = constraints.maxWidth > compactLayoutThreshold;
+                  if (isWide) {
+                    return wideLayout(context, constraints, state);
+                  } else {
+                    return compactLayout(context, constraints, state);
+                  }
+                default:
+                  return Center(child: Text("LOADING"));
               }
             }));
   }
 
-  Widget blocProvider(BuildContext context, {required BlocWidgetBuilder builder}) {
+  Widget blocProvider(BuildContext context, {required BlocWidgetBuilder<BookDetailsState> builder}) {
     return BlocBuilder<BookDetailsBloc, BookDetailsState>(
         builder: (context, state) => BlocListener<BookDetailsBloc, BookDetailsState>(
               listenWhen: (previous, current) => previous.status != current.status && current.status == Status.deleted,
