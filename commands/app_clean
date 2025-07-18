@@ -1,0 +1,1 @@
+rm -rfv "$HOME/Library/Containers/com.example.ursaBooks/Data/Library/Application Support/com.example.ursaBooks"
