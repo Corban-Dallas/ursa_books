@@ -13,8 +13,7 @@ import 'dart:ffi' as ffi;
 import 'frb_generated.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated_io.dart';
 import 'third_party/ark_application/application.dart';
-import 'third_party/ark_application/file_storage.dart';
-import 'third_party/ark_application/file_storage/images.dart';
+import 'third_party/ark_application/infrastructure/file_storage/images.dart';
 import 'third_party/ark_backend_api/creative_work/book.dart';
 import 'third_party/ark_backend_api/creative_work/organization.dart';
 import 'third_party/ark_backend_api/creative_work/person.dart';
@@ -47,10 +46,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   CrossPlatformFinalizerArg
       get rust_arc_decrement_strong_count_FileProviderPtr => wire
           ._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileProviderPtr;
-
-  CrossPlatformFinalizerArg
-      get rust_arc_decrement_strong_count_FileStoragePtr => wire
-          ._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileStoragePtr;
 
   CrossPlatformFinalizerArg
       get rust_arc_decrement_strong_count_OcSubscriptionPtr => wire
@@ -94,11 +89,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   @protected
   FileProvider
       dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileProvider(
-          dynamic raw);
-
-  @protected
-  FileStorage
-      dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileStorage(
           dynamic raw);
 
   @protected
@@ -152,11 +142,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
           dynamic raw);
 
   @protected
-  FileStorage
-      dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileStorage(
-          dynamic raw);
-
-  @protected
   RBookBinding
       dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRBookBinding(
           dynamic raw);
@@ -205,11 +190,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
           dynamic raw);
 
   @protected
-  FileStorage
-      dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileStorage(
-          dynamic raw);
-
-  @protected
   OcSubscription
       dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerOCSubscription(
           dynamic raw);
@@ -242,9 +222,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   BookDraft dco_decode_book_draft(dynamic raw);
 
   @protected
-  BookPredicate dco_decode_book_predicate(dynamic raw);
-
-  @protected
   BookUpdate dco_decode_book_update(dynamic raw);
 
   @protected
@@ -252,6 +229,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   BookUserDataDraft dco_decode_book_user_data_draft(dynamic raw);
+
+  @protected
+  BooksFilter dco_decode_books_filter(dynamic raw);
 
   @protected
   bool dco_decode_bool(dynamic raw);
@@ -416,11 +396,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
           SseDeserializer deserializer);
 
   @protected
-  FileStorage
-      sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileStorage(
-          SseDeserializer deserializer);
-
-  @protected
   OcSubscription
       sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerOCSubscription(
           SseDeserializer deserializer);
@@ -471,11 +446,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
           SseDeserializer deserializer);
 
   @protected
-  FileStorage
-      sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileStorage(
-          SseDeserializer deserializer);
-
-  @protected
   RBookBinding
       sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRBookBinding(
           SseDeserializer deserializer);
@@ -506,11 +476,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   @protected
   FileProvider
       sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileProvider(
-          SseDeserializer deserializer);
-
-  @protected
-  FileStorage
-      sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileStorage(
           SseDeserializer deserializer);
 
   @protected
@@ -546,9 +511,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   BookDraft sse_decode_book_draft(SseDeserializer deserializer);
 
   @protected
-  BookPredicate sse_decode_book_predicate(SseDeserializer deserializer);
-
-  @protected
   BookUpdate sse_decode_book_update(SseDeserializer deserializer);
 
   @protected
@@ -557,6 +519,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   @protected
   BookUserDataDraft sse_decode_book_user_data_draft(
       SseDeserializer deserializer);
+
+  @protected
+  BooksFilter sse_decode_books_filter(SseDeserializer deserializer);
 
   @protected
   bool sse_decode_bool(SseDeserializer deserializer);
@@ -731,11 +696,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void
-      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileStorage(
-          FileStorage self, SseSerializer serializer);
-
-  @protected
-  void
       sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerOCSubscription(
           OcSubscription self, SseSerializer serializer);
 
@@ -786,11 +746,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void
-      sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileStorage(
-          FileStorage self, SseSerializer serializer);
-
-  @protected
-  void
       sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRBookBinding(
           RBookBinding self, SseSerializer serializer);
 
@@ -838,11 +793,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void
-      sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileStorage(
-          FileStorage self, SseSerializer serializer);
-
-  @protected
-  void
       sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerOCSubscription(
           OcSubscription self, SseSerializer serializer);
 
@@ -875,9 +825,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void sse_encode_book_draft(BookDraft self, SseSerializer serializer);
 
   @protected
-  void sse_encode_book_predicate(BookPredicate self, SseSerializer serializer);
-
-  @protected
   void sse_encode_book_update(BookUpdate self, SseSerializer serializer);
 
   @protected
@@ -886,6 +833,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   @protected
   void sse_encode_book_user_data_draft(
       BookUserDataDraft self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_books_filter(BooksFilter self, SseSerializer serializer);
 
   @protected
   void sse_encode_bool(bool self, SseSerializer serializer);
@@ -1210,38 +1160,6 @@ class RustLibWire implements BaseWire {
           'frbgen_ursa_books_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileProvider');
   late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileProvider =
       _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileProviderPtr
-          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
-
-  void
-      rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileStorage(
-    ffi.Pointer<ffi.Void> ptr,
-  ) {
-    return _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileStorage(
-      ptr,
-    );
-  }
-
-  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileStoragePtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
-          'frbgen_ursa_books_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileStorage');
-  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileStorage =
-      _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileStoragePtr
-          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
-
-  void
-      rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileStorage(
-    ffi.Pointer<ffi.Void> ptr,
-  ) {
-    return _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileStorage(
-      ptr,
-    );
-  }
-
-  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileStoragePtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
-          'frbgen_ursa_books_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileStorage');
-  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileStorage =
-      _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileStoragePtr
           .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
   void

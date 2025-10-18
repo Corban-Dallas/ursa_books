@@ -5,7 +5,7 @@
 
 import '../frb_generated.dart';
 import '../third_party/ark_application/application.dart';
-import '../third_party/ark_application/file_storage/images.dart';
+import '../third_party/ark_application/infrastructure/file_storage/images.dart';
 import 'books.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 

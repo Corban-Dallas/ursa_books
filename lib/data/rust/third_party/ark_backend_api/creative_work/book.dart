@@ -174,21 +174,6 @@ class BookDraft {
           subjects == other.subjects;
 }
 
-class BookPredicate {
-  const BookPredicate();
-
-  static Future<BookPredicate> default_() =>
-      RustLib.instance.api.arkBackendApiCreativeWorkBookBookPredicateDefault();
-
-  @override
-  int get hashCode => 0;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is BookPredicate && runtimeType == other.runtimeType;
-}
-
 class BookUpdate {
   final String id;
   final String? name;
@@ -265,4 +250,19 @@ class BookUpdate {
           encodings == other.encodings &&
           originCountry == other.originCountry &&
           entitySource == other.entitySource;
+}
+
+class BooksFilter {
+  const BooksFilter();
+
+  static Future<BooksFilter> default_() =>
+      RustLib.instance.api.arkBackendApiCreativeWorkBookBooksFilterDefault();
+
+  @override
+  int get hashCode => 0;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is BooksFilter && runtimeType == other.runtimeType;
 }

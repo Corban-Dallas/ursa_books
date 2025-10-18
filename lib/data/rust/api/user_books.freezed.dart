@@ -1,6 +1,5 @@
-// dart format width=80
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -34,6 +33,274 @@ mixin _$FlatEventUserBook {
 class $FlatEventUserBookCopyWith<$Res> {
   $FlatEventUserBookCopyWith(
       FlatEventUserBook _, $Res Function(FlatEventUserBook) __);
+}
+
+/// Adds pattern-matching-related methods to [FlatEventUserBook].
+extension FlatEventUserBookPatterns on FlatEventUserBook {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(FlatEventUserBook_BeginTasnsaction value)?
+        beginTasnsaction,
+    TResult Function(FlatEventUserBook_FinishTransaction value)?
+        finishTransaction,
+    TResult Function(FlatEventUserBook_Reset value)? reset,
+    TResult Function(FlatEventUserBook_Delete value)? delete,
+    TResult Function(FlatEventUserBook_Insert value)? insert,
+    TResult Function(FlatEventUserBook_Update value)? update,
+    TResult Function(FlatEventUserBook_Move value)? move,
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case FlatEventUserBook_BeginTasnsaction() when beginTasnsaction != null:
+        return beginTasnsaction(_that);
+      case FlatEventUserBook_FinishTransaction() when finishTransaction != null:
+        return finishTransaction(_that);
+      case FlatEventUserBook_Reset() when reset != null:
+        return reset(_that);
+      case FlatEventUserBook_Delete() when delete != null:
+        return delete(_that);
+      case FlatEventUserBook_Insert() when insert != null:
+        return insert(_that);
+      case FlatEventUserBook_Update() when update != null:
+        return update(_that);
+      case FlatEventUserBook_Move() when move != null:
+        return move(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(FlatEventUserBook_BeginTasnsaction value)
+        beginTasnsaction,
+    required TResult Function(FlatEventUserBook_FinishTransaction value)
+        finishTransaction,
+    required TResult Function(FlatEventUserBook_Reset value) reset,
+    required TResult Function(FlatEventUserBook_Delete value) delete,
+    required TResult Function(FlatEventUserBook_Insert value) insert,
+    required TResult Function(FlatEventUserBook_Update value) update,
+    required TResult Function(FlatEventUserBook_Move value) move,
+  }) {
+    final _that = this;
+    switch (_that) {
+      case FlatEventUserBook_BeginTasnsaction():
+        return beginTasnsaction(_that);
+      case FlatEventUserBook_FinishTransaction():
+        return finishTransaction(_that);
+      case FlatEventUserBook_Reset():
+        return reset(_that);
+      case FlatEventUserBook_Delete():
+        return delete(_that);
+      case FlatEventUserBook_Insert():
+        return insert(_that);
+      case FlatEventUserBook_Update():
+        return update(_that);
+      case FlatEventUserBook_Move():
+        return move(_that);
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(FlatEventUserBook_BeginTasnsaction value)?
+        beginTasnsaction,
+    TResult? Function(FlatEventUserBook_FinishTransaction value)?
+        finishTransaction,
+    TResult? Function(FlatEventUserBook_Reset value)? reset,
+    TResult? Function(FlatEventUserBook_Delete value)? delete,
+    TResult? Function(FlatEventUserBook_Insert value)? insert,
+    TResult? Function(FlatEventUserBook_Update value)? update,
+    TResult? Function(FlatEventUserBook_Move value)? move,
+  }) {
+    final _that = this;
+    switch (_that) {
+      case FlatEventUserBook_BeginTasnsaction() when beginTasnsaction != null:
+        return beginTasnsaction(_that);
+      case FlatEventUserBook_FinishTransaction() when finishTransaction != null:
+        return finishTransaction(_that);
+      case FlatEventUserBook_Reset() when reset != null:
+        return reset(_that);
+      case FlatEventUserBook_Delete() when delete != null:
+        return delete(_that);
+      case FlatEventUserBook_Insert() when insert != null:
+        return insert(_that);
+      case FlatEventUserBook_Update() when update != null:
+        return update(_that);
+      case FlatEventUserBook_Move() when move != null:
+        return move(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? beginTasnsaction,
+    TResult Function()? finishTransaction,
+    TResult Function(List<UserBook> items)? reset,
+    TResult Function(BigInt start, BigInt end)? delete,
+    TResult Function(BigInt index, List<UserBook> items)? insert,
+    TResult Function(BigInt index, UserBook item)? update,
+    TResult Function(BigInt start, BigInt end, PlatformInt64 offset)? move,
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case FlatEventUserBook_BeginTasnsaction() when beginTasnsaction != null:
+        return beginTasnsaction();
+      case FlatEventUserBook_FinishTransaction() when finishTransaction != null:
+        return finishTransaction();
+      case FlatEventUserBook_Reset() when reset != null:
+        return reset(_that.items);
+      case FlatEventUserBook_Delete() when delete != null:
+        return delete(_that.start, _that.end);
+      case FlatEventUserBook_Insert() when insert != null:
+        return insert(_that.index, _that.items);
+      case FlatEventUserBook_Update() when update != null:
+        return update(_that.index, _that.item);
+      case FlatEventUserBook_Move() when move != null:
+        return move(_that.start, _that.end, _that.offset);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() beginTasnsaction,
+    required TResult Function() finishTransaction,
+    required TResult Function(List<UserBook> items) reset,
+    required TResult Function(BigInt start, BigInt end) delete,
+    required TResult Function(BigInt index, List<UserBook> items) insert,
+    required TResult Function(BigInt index, UserBook item) update,
+    required TResult Function(BigInt start, BigInt end, PlatformInt64 offset)
+        move,
+  }) {
+    final _that = this;
+    switch (_that) {
+      case FlatEventUserBook_BeginTasnsaction():
+        return beginTasnsaction();
+      case FlatEventUserBook_FinishTransaction():
+        return finishTransaction();
+      case FlatEventUserBook_Reset():
+        return reset(_that.items);
+      case FlatEventUserBook_Delete():
+        return delete(_that.start, _that.end);
+      case FlatEventUserBook_Insert():
+        return insert(_that.index, _that.items);
+      case FlatEventUserBook_Update():
+        return update(_that.index, _that.item);
+      case FlatEventUserBook_Move():
+        return move(_that.start, _that.end, _that.offset);
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? beginTasnsaction,
+    TResult? Function()? finishTransaction,
+    TResult? Function(List<UserBook> items)? reset,
+    TResult? Function(BigInt start, BigInt end)? delete,
+    TResult? Function(BigInt index, List<UserBook> items)? insert,
+    TResult? Function(BigInt index, UserBook item)? update,
+    TResult? Function(BigInt start, BigInt end, PlatformInt64 offset)? move,
+  }) {
+    final _that = this;
+    switch (_that) {
+      case FlatEventUserBook_BeginTasnsaction() when beginTasnsaction != null:
+        return beginTasnsaction();
+      case FlatEventUserBook_FinishTransaction() when finishTransaction != null:
+        return finishTransaction();
+      case FlatEventUserBook_Reset() when reset != null:
+        return reset(_that.items);
+      case FlatEventUserBook_Delete() when delete != null:
+        return delete(_that.start, _that.end);
+      case FlatEventUserBook_Insert() when insert != null:
+        return insert(_that.index, _that.items);
+      case FlatEventUserBook_Update() when update != null:
+        return update(_that.index, _that.item);
+      case FlatEventUserBook_Move() when move != null:
+        return move(_that.start, _that.end, _that.offset);
+      case _:
+        return null;
+    }
+  }
 }
 
 /// @nodoc

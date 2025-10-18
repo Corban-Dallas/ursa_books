@@ -19,7 +19,7 @@
         {
             "label": "cargo clippy + fmt",
             "type": "shell",
-            "command": "cd rust; cargo clippy --fix; cargo fmt",
+            "command": "cd rust; cargo clippy --fix --allow-dirty; cargo fmt",
             "presentation": {
                 "reveal": "always",
                 "panel": "new"

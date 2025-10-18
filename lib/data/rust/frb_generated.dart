@@ -14,8 +14,7 @@ import 'frb_generated.io.dart'
     if (dart.library.js_interop) 'frb_generated.web.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'third_party/ark_application/application.dart';
-import 'third_party/ark_application/file_storage.dart';
-import 'third_party/ark_application/file_storage/images.dart';
+import 'third_party/ark_application/infrastructure/file_storage/images.dart';
 import 'third_party/ark_backend_api/creative_work/book.dart';
 import 'third_party/ark_backend_api/creative_work/organization.dart';
 import 'third_party/ark_backend_api/creative_work/person.dart';
@@ -82,7 +81,7 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
   String get codegenVersion => '2.11.1';
 
   @override
-  int get rustContentHash => -1377189665;
+  int get rustContentHash => 985357918;
 
   static const kDefaultExternalLibraryLoaderConfig =
       ExternalLibraryLoaderConfig(
@@ -136,9 +135,6 @@ abstract class RustLibApi extends BaseApi {
   Future<Uint8List?> crateApiCoreFileProviderGetImage(
       {required FileProvider that, required String urn, ImageQuery? params});
 
-  Future<Uint8List> arkApplicationFileStorageFileStorageGetThumbnail(
-      {required FileStorage that, required String iri, ImageQuery? params});
-
   Future<void> crateApiBooksRBookBindingDelete({required RBookBinding that});
 
   Future<UserBook> crateApiBooksRBookBindingGetModel(
@@ -157,12 +153,12 @@ abstract class RustLibApi extends BaseApi {
 
   Future<void> crateApiCoreAdditionalRuntimeInit();
 
-  Future<BookPredicate> arkBackendApiCreativeWorkBookBookPredicateDefault();
-
   Future<BookUpdate> arkBackendApiCreativeWorkBookBookUpdateDefault();
 
   Future<BookUserDataDraft>
       arkBackendApiPersonalDataBookUserDataBookUserDataDraftDefault();
+
+  Future<BooksFilter> arkBackendApiCreativeWorkBookBooksFilterDefault();
 
   Future<PersonDraft> arkBackendApiCreativeWorkPersonPersonDraftDefault();
 
@@ -206,14 +202,6 @@ abstract class RustLibApi extends BaseApi {
       get rust_arc_decrement_strong_count_FileProvider;
 
   CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_FileProviderPtr;
-
-  RustArcIncrementStrongCountFnType
-      get rust_arc_increment_strong_count_FileStorage;
-
-  RustArcDecrementStrongCountFnType
-      get rust_arc_decrement_strong_count_FileStorage;
-
-  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_FileStoragePtr;
 
   RustArcIncrementStrongCountFnType
       get rust_arc_increment_strong_count_OcSubscription;
@@ -655,36 +643,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       );
 
   @override
-  Future<Uint8List> arkApplicationFileStorageFileStorageGetThumbnail(
-      {required FileStorage that, required String iri, ImageQuery? params}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileStorage(
-            that, serializer);
-        sse_encode_String(iri, serializer);
-        sse_encode_opt_box_autoadd_image_query(params, serializer);
-        pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 15, port: port_);
-      },
-      codec: SseCodec(
-        decodeSuccessData: sse_decode_list_prim_u_8_strict,
-        decodeErrorData: sse_decode_AnyhowException,
-      ),
-      constMeta: kArkApplicationFileStorageFileStorageGetThumbnailConstMeta,
-      argValues: [that, iri, params],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta
-      get kArkApplicationFileStorageFileStorageGetThumbnailConstMeta =>
-          const TaskConstMeta(
-            debugName: "FileStorage_get_thumbnail",
-            argNames: ["that", "iri", "params"],
-          );
-
-  @override
   Future<void> crateApiBooksRBookBindingDelete({required RBookBinding that}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
@@ -692,7 +650,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRBookBinding(
             that, serializer);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 16, port: port_);
+            funcId: 15, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_unit,
@@ -719,7 +677,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRBookBinding(
             that, serializer);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 17, port: port_);
+            funcId: 16, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_user_book,
@@ -747,7 +705,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
             that, serializer);
         sse_encode_bool(completed, serializer);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 18, port: port_);
+            funcId: 17, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_unit,
@@ -777,7 +735,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         sse_encode_DartFn_Inputs_r_book_entity_event_Output_unit_AnyhowException(
             callback, serializer);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 19, port: port_);
+            funcId: 18, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -808,7 +766,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         sse_encode_DartFn_Inputs_flat_event_user_book_Output_unit_AnyhowException(
             callback, serializer);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 20, port: port_);
+            funcId: 19, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -833,7 +791,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       callFfi: (port_) {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 21, port: port_);
+            funcId: 20, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_unit,
@@ -852,37 +810,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       );
 
   @override
-  Future<BookPredicate> arkBackendApiCreativeWorkBookBookPredicateDefault() {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 22, port: port_);
-      },
-      codec: SseCodec(
-        decodeSuccessData: sse_decode_book_predicate,
-        decodeErrorData: null,
-      ),
-      constMeta: kArkBackendApiCreativeWorkBookBookPredicateDefaultConstMeta,
-      argValues: [],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta
-      get kArkBackendApiCreativeWorkBookBookPredicateDefaultConstMeta =>
-          const TaskConstMeta(
-            debugName: "book_predicate_default",
-            argNames: [],
-          );
-
-  @override
   Future<BookUpdate> arkBackendApiCreativeWorkBookBookUpdateDefault() {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 23, port: port_);
+            funcId: 21, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_book_update,
@@ -907,7 +840,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       callFfi: (port_) {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 24, port: port_);
+            funcId: 22, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_book_user_data_draft,
@@ -928,12 +861,36 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           );
 
   @override
+  Future<BooksFilter> arkBackendApiCreativeWorkBookBooksFilterDefault() {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        pdeCallFfi(generalizedFrbRustBinding, serializer,
+            funcId: 23, port: port_);
+      },
+      codec: SseCodec(
+        decodeSuccessData: sse_decode_books_filter,
+        decodeErrorData: null,
+      ),
+      constMeta: kArkBackendApiCreativeWorkBookBooksFilterDefaultConstMeta,
+      argValues: [],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kArkBackendApiCreativeWorkBookBooksFilterDefaultConstMeta =>
+      const TaskConstMeta(
+        debugName: "books_filter_default",
+        argNames: [],
+      );
+
+  @override
   Future<PersonDraft> arkBackendApiCreativeWorkPersonPersonDraftDefault() {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 25, port: port_);
+            funcId: 24, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_person_draft,
@@ -958,7 +915,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       callFfi: (port_) {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 26, port: port_);
+            funcId: 25, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_person_filter,
@@ -1117,14 +1074,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileProvider;
 
   RustArcIncrementStrongCountFnType
-      get rust_arc_increment_strong_count_FileStorage => wire
-          .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileStorage;
-
-  RustArcDecrementStrongCountFnType
-      get rust_arc_decrement_strong_count_FileStorage => wire
-          .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileStorage;
-
-  RustArcIncrementStrongCountFnType
       get rust_arc_increment_strong_count_OcSubscription => wire
           .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerOCSubscription;
 
@@ -1201,14 +1150,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return FileProviderImpl.frbInternalDcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
-  FileStorage
-      dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileStorage(
-          dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return FileStorageImpl.frbInternalDcoDecode(raw as List<dynamic>);
   }
 
   @protected
@@ -1293,14 +1234,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  FileStorage
-      dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileStorage(
-          dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return FileStorageImpl.frbInternalDcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
   RBookBinding
       dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRBookBinding(
           dynamic raw) {
@@ -1377,14 +1310,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return FileProviderImpl.frbInternalDcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
-  FileStorage
-      dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileStorage(
-          dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return FileStorageImpl.frbInternalDcoDecode(raw as List<dynamic>);
   }
 
   @protected
@@ -1490,15 +1415,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  BookPredicate dco_decode_book_predicate(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    final arr = raw as List<dynamic>;
-    if (arr.isNotEmpty)
-      throw Exception('unexpected arr length: expect 0 but see ${arr.length}');
-    return BookPredicate();
-  }
-
-  @protected
   BookUpdate dco_decode_book_update(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     final arr = raw as List<dynamic>;
@@ -1550,6 +1466,15 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       completed: dco_decode_bool(arr[2]),
       progress: dco_decode_usize(arr[3]),
     );
+  }
+
+  @protected
+  BooksFilter dco_decode_books_filter(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.isNotEmpty)
+      throw Exception('unexpected arr length: expect 0 but see ${arr.length}');
+    return BooksFilter();
   }
 
   @protected
@@ -2001,15 +1926,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  FileStorage
-      sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileStorage(
-          SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return FileStorageImpl.frbInternalSseDecode(
-        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
-  }
-
-  @protected
   OcSubscription
       sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerOCSubscription(
           SseDeserializer deserializer) {
@@ -2100,15 +2016,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  FileStorage
-      sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileStorage(
-          SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return FileStorageImpl.frbInternalSseDecode(
-        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
-  }
-
-  @protected
   RBookBinding
       sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRBookBinding(
           SseDeserializer deserializer) {
@@ -2166,15 +2073,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return FileProviderImpl.frbInternalSseDecode(
-        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
-  }
-
-  @protected
-  FileStorage
-      sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileStorage(
-          SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return FileStorageImpl.frbInternalSseDecode(
         sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
   }
 
@@ -2308,12 +2206,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  BookPredicate sse_decode_book_predicate(SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return BookPredicate();
-  }
-
-  @protected
   BookUpdate sse_decode_book_update(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var var_id = sse_decode_String(deserializer);
@@ -2378,6 +2270,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         portalId: var_portalId,
         completed: var_completed,
         progress: var_progress);
+  }
+
+  @protected
+  BooksFilter sse_decode_books_filter(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return BooksFilter();
   }
 
   @protected
@@ -2905,15 +2803,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
 
   @protected
   void
-      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileStorage(
-          FileStorage self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(
-        (self as FileStorageImpl).frbInternalSseEncode(move: true), serializer);
-  }
-
-  @protected
-  void
       sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerOCSubscription(
           OcSubscription self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
@@ -3008,16 +2897,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_usize(
         (self as FileProviderImpl).frbInternalSseEncode(move: false),
-        serializer);
-  }
-
-  @protected
-  void
-      sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileStorage(
-          FileStorage self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(
-        (self as FileStorageImpl).frbInternalSseEncode(move: false),
         serializer);
   }
 
@@ -3123,15 +3002,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
 
   @protected
   void
-      sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileStorage(
-          FileStorage self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(
-        (self as FileStorageImpl).frbInternalSseEncode(move: null), serializer);
-  }
-
-  @protected
-  void
       sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerOCSubscription(
           OcSubscription self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
@@ -3227,11 +3097,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  void sse_encode_book_predicate(BookPredicate self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-  }
-
-  @protected
   void sse_encode_book_update(BookUpdate self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_String(self.id, serializer);
@@ -3269,6 +3134,11 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     sse_encode_String(self.portalId, serializer);
     sse_encode_bool(self.completed, serializer);
     sse_encode_usize(self.progress, serializer);
+  }
+
+  @protected
+  void sse_encode_books_filter(BooksFilter self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
   }
 
   @protected
@@ -3843,30 +3713,6 @@ class FileProviderImpl extends RustOpaque implements FileProvider {
   Future<Uint8List?> getImage({required String urn, ImageQuery? params}) =>
       RustLib.instance.api.crateApiCoreFileProviderGetImage(
           that: this, urn: urn, params: params);
-}
-
-@sealed
-class FileStorageImpl extends RustOpaque implements FileStorage {
-  // Not to be used by end users
-  FileStorageImpl.frbInternalDcoDecode(List<dynamic> wire)
-      : super.frbInternalDcoDecode(wire, _kStaticData);
-
-  // Not to be used by end users
-  FileStorageImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative)
-      : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
-
-  static final _kStaticData = RustArcStaticData(
-    rustArcIncrementStrongCount:
-        RustLib.instance.api.rust_arc_increment_strong_count_FileStorage,
-    rustArcDecrementStrongCount:
-        RustLib.instance.api.rust_arc_decrement_strong_count_FileStorage,
-    rustArcDecrementStrongCountPtr:
-        RustLib.instance.api.rust_arc_decrement_strong_count_FileStoragePtr,
-  );
-
-  Future<Uint8List> getThumbnail({required String iri, ImageQuery? params}) =>
-      RustLib.instance.api.arkApplicationFileStorageFileStorageGetThumbnail(
-          that: this, iri: iri, params: params);
 }
 
 @sealed

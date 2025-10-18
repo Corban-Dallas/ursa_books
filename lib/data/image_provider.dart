@@ -7,7 +7,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ursa_books/data/rust/api/core.dart';
-import 'package:ursa_books/data/rust/third_party/ark_application/file_storage/images.dart';
+import 'package:ursa_books/data/rust/third_party/ark_application/infrastructure/file_storage/images.dart';
 
 typedef Fetcher = Future<ImageInfo> Function(ImageQuery iri);
 
