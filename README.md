@@ -1,5 +1,6 @@
 # ursa_books
-Катало книг. Данное кросплатформенное приложение является прототипом на базе протокола децентрализириваной пиринговой сети [p2panda](https://p2panda.org/). Ядро приложения написано на Rust, в качесвте интерфейса используется Flutter. Связь между ядром и UI осуществляется через генерируемый мост [flutter_rust_bridge](https://github.com/fzyzcjy/flutter_rust_bridge). 
+
+Book Catalog. This cross-platform application is a prototype based on the decentralized peer-to-peer network protocol [p2panda](https://p2panda.org/). The core of the application is written in Rust, and Flutter is used for the interface. Communication between the rust core and dart UI is achieved through the generated bridge [flutter_rust_bridge](https://github.com/fzyzcjy/flutter_rust_bridge).
 
 Library application based on p2panda protocol
 
