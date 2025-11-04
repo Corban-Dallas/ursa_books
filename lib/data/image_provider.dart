@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/rendering.dart';
 
-import 'dart:io';
 import 'dart:ui' as ui;
 
 import 'package:flutter/foundation.dart';

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:ursa_books/data/image_provider.dart';
 import 'package:ursa_books/data/rust/third_party/ark_backend_api/creative_work/book.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
 class BookCard extends StatelessWidget {
   final Book book;

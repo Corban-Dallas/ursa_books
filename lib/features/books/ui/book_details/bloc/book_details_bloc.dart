@@ -1,8 +1,7 @@
 import 'package:bloc/bloc.dart';
 
-// import 'package:ursa_books/data/rust/third_party/ark_backend_api/creative_work/book.dart';
 import 'package:ursa_books/features/books/ui/books_collection/bloc/books_collection_bloc.dart';
-// import '../../../domain/user_books_repository.dart';
+
 
 part 'book_details_event.dart';
 part 'book_details_state.dart';
@@ -26,9 +25,7 @@ class BookDetailsBloc extends Bloc<BookDetailsEvent, BookDetailsState> {
     BookDetailsEvent event,
     Emitter<BookDetailsState> emit,
   ) async {
-    // await _booksRepository.delete(state.id);
     await _binding?.delete();
-    // emit(state.copyWith(status: Status.deleted));
   }
 
   Future<void> _onCompleteToogled(
